@@ -1,6 +1,6 @@
-/* ============================================================
-   OM SONI PORTFOLIO — WEBKAIZEN-INSPIRED DESIGN SYSTEM
-   Pure Black · Bold White · Bebas Neue Display
+﻿/* ============================================================
+   OM SONI PORTFOLIO â€” WEBKAIZEN-INSPIRED DESIGN SYSTEM
+   Pure Black Â· Bold White Â· Bebas Neue Display
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -79,7 +79,7 @@ strong, b, .bold, .hero-bold, .about-bold, .highlight-bold {
   cursor: pointer;
 }
 
-/* Crisp Laser Sheen Sweep on Hover — No blurry drop-shadow glow */
+/* Crisp Laser Sheen Sweep on Hover â€” No blurry drop-shadow glow */
 strong:hover, b:hover, .bold:hover, .hero-bold:hover, .about-bold:hover, .highlight-bold:hover {
   transform: translateY(-2px) scale(1.03);
   background: linear-gradient(110deg, #ffffff 0%, #ffffff 35%, #e63030 50%, #ffffff 65%, #ffffff 100%);
@@ -143,7 +143,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 }
 
 /* ============================================================
-   CUSTOM CURSOR — REMOVED
+   CUSTOM CURSOR â€” REMOVED
    ============================================================ */
 .cursor-dot,
 .cursor-ring {
@@ -156,7 +156,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 
 
 /* ============================================================
-   EVERY PAGE SECTION — LEFT TO RIGHT SLIDE ENTRANCE SYSTEM
+   EVERY PAGE SECTION â€” LEFT TO RIGHT SLIDE ENTRANCE SYSTEM
    ============================================================ */
 [data-reveal],
 .exp-item,
@@ -746,7 +746,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
    HERO
    ============================================================ */
 /* ============================================================
-   HERO SECTION — FULL-BLEED FORMAL MONOCHROME
+   HERO SECTION â€” FULL-BLEED FORMAL MONOCHROME
    ============================================================ */
 .hero {
   height: 100vh;
@@ -949,7 +949,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   box-shadow: 0 10px 24px rgba(255, 255, 255, 0.08);
 }
 
-/* Right Photo Zone — Full Bleed Right Side */
+/* Right Photo Zone â€” Full Bleed Right Side */
 .hero-right-photo-zone {
   position: absolute;
   right: 0;
@@ -1060,7 +1060,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   font-weight: 600;
 }
 
-/* Alias — JSX uses .hero-btn-row; CSS has .hero-bottom-btns */
+/* Alias â€” JSX uses .hero-btn-row; CSS has .hero-bottom-btns */
 .hero-btn-row,
 .hero-bottom-btns {
   display: flex;
@@ -1068,7 +1068,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   flex-shrink: 0;
 }
 
-/* ── CTA PILL BUTTONS ── */
+/* â”€â”€ CTA PILL BUTTONS â”€â”€ */
 .hero-pill-btn {
   display: inline-flex;
   align-items: center;
@@ -1095,7 +1095,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   transform: scale(1.03);
 }
 
-/* Ghost alias — JSX uses hero-pill-btn-ghost on resume button */
+/* Ghost alias â€” JSX uses hero-pill-btn-ghost on resume button */
 .hero-pill-btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -1134,7 +1134,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   color: #fff;
 }
 
-/* ── RESPONSIVE HERO ── */
+/* â”€â”€ RESPONSIVE HERO â”€â”€ */
 @media (max-width: 1200px) {
   .hero-name-overlay {
     font-size: clamp(20vw, 26vw, 32vw);
@@ -1218,7 +1218,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 
 
 /* ============================================================
-   ABOUT — BIG TITLE + ID CARD
+   ABOUT â€” BIG TITLE + ID CARD
    ============================================================ */
 .about-section {
   background: #000;
@@ -1341,7 +1341,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   border-color: var(--border-md);
 }
 
-/* ID Card — hanging from top */
+/* ID Card â€” hanging from top */
 .about-right {
   display: flex;
   justify-content: center;
@@ -1921,7 +1921,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 
 
 /* ============================================================
-   SHOWCASE — TABS + CARDS
+   SHOWCASE â€” TABS + CARDS
    ============================================================ */
 .showcase-tab-group {
   display: flex;
@@ -2050,7 +2050,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   display: none !important;
 }
 
-/* Tech Stack Grid — Left-to-Right Sliding Animations */
+/* Tech Stack Grid â€” Left-to-Right Sliding Animations */
 .tech-stack-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -2168,7 +2168,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 
 
 /* ============================================================
-   ACHIEVEMENTS — SLIDING CARD ANIMATIONS
+   ACHIEVEMENTS â€” SLIDING CARD ANIMATIONS
    ============================================================ */
 .ach-strip {
   display: grid;
@@ -2739,7 +2739,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 
 
 /* ============================================================
-   MARQUEE TICKER — scrolls left to right (RIGHT direction)
+   MARQUEE TICKER â€” scrolls left to right (RIGHT direction)
    ============================================================ */
 .ticker-wrap {
   overflow: hidden;
@@ -2748,7 +2748,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   padding: 14px 0;
   background: #000;
   position: relative;
-  /* Fade edges: left side fades in (left → right), right fades out */
+  /* Fade edges: left side fades in (left â†’ right), right fades out */
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0%,
@@ -2773,10 +2773,10 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   display: flex;
   gap: 48px;
   white-space: nowrap;
-  /* LEFT → RIGHT: moves from start (0%) rightward to (50%) — seamless loop */
+  /* LEFT â†’ RIGHT: moves from start (0%) rightward to (50%) â€” seamless loop */
   animation: tickerLTR 28s linear infinite;
   width: max-content;
-  /* NO static transform — animation controls position entirely */
+  /* NO static transform â€” animation controls position entirely */
 }
 
 .ticker-track:hover { animation-play-state: paused; }
@@ -2800,14 +2800,14 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 }
 
 .ticker-item::before {
-  content: '◆';
+  content: 'â—†';
   color: rgba(255,255,255,0.15);
   font-size: 0.38rem;
 }
 
 /*
- * LEFT → RIGHT seamless loop:
- * Track = [copy1][copy2], total width = 2×
+ * LEFT â†’ RIGHT seamless loop:
+ * Track = [copy1][copy2], total width = 2Ã—
  * Starts at -50% (showing copy2), moves to 0% (showing copy1)
  * Visual effect: items flow from left to right
  */
@@ -2908,7 +2908,7 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 
 
 /* ============================================================
-   HERO — parallax / stagger text / magnetic buttons / subline
+   HERO â€” parallax / stagger text / magnetic buttons / subline
    ============================================================ */
 .hero-name-overlay,
 .hero-photo-wrap {
@@ -3072,9 +3072,9 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 }
 
 
-/* ============================================================
-   HAMBURGER BUTTON — mobile nav toggle
-   ============================================================ */
+/* ================================================================
+   HAMBURGER BUTTON â€” mobile nav toggle
+   ================================================================ */
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -3091,12 +3091,10 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   transition: background 0.2s ease, border-color 0.2s ease;
   z-index: 600;
 }
-
 .nav-hamburger:hover {
   background: rgba(255,255,255,0.12);
   border-color: rgba(255,255,255,0.25);
 }
-
 .nav-hamburger span {
   display: block;
   width: 18px;
@@ -3106,20 +3104,14 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   transition: transform 0.3s var(--ease-expo), opacity 0.2s ease, width 0.3s var(--ease-expo);
   transform-origin: center;
 }
-
-/* X state when open */
 .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-@media (max-width: 640px) {
-  .nav-hamburger { display: flex; }
-}
 
-
-/* ============================================================
+/* ================================================================
    MOBILE NAV DRAWER
-   ============================================================ */
+   ================================================================ */
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
@@ -3129,12 +3121,9 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   z-index: 550;
   animation: fadeOverlay 0.22s ease;
 }
-
 .mobile-nav-drawer {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; right: 0; bottom: 0;
   width: min(320px, 88vw);
   background: #0a0a0a;
   border-left: 1px solid rgba(255,255,255,0.1);
@@ -3144,12 +3133,10 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   animation: drawerSlideIn 0.32s var(--ease-expo) forwards;
   overflow-y: auto;
 }
-
 @keyframes drawerSlideIn {
   from { transform: translateX(100%); }
   to   { transform: translateX(0); }
 }
-
 .mobile-nav-header {
   display: flex;
   align-items: center;
@@ -3157,41 +3144,30 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   padding: 20px 24px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-
 .mobile-nav-brand {
   font-family: var(--font-display);
   font-size: 1.6rem;
   letter-spacing: 0.06em;
   color: #fff;
 }
-
 .mobile-nav-close {
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   border-radius: 50%;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   color: var(--ink-2);
   font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
 }
-
-.mobile-nav-close:hover {
-  background: rgba(255,255,255,0.12);
-  color: #fff;
-}
-
+.mobile-nav-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
 .mobile-nav-links {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 16px 0;
 }
-
 .mobile-nav-links li a {
   display: flex;
   align-items: center;
@@ -3205,29 +3181,21 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   border-bottom: 1px solid rgba(255,255,255,0.05);
   transition: color 0.2s ease, background 0.2s ease, padding-left 0.2s ease;
 }
-
 .mobile-nav-links li a:hover {
   color: #fff;
   background: rgba(255,255,255,0.04);
   padding-left: 36px;
 }
-
 .mobile-nav-arrow {
   font-size: 0.9rem;
   color: var(--ink-3);
   transition: transform 0.2s ease, color 0.2s ease;
 }
-
-.mobile-nav-links li a:hover .mobile-nav-arrow {
-  transform: translateX(4px);
-  color: var(--ink-2);
-}
-
+.mobile-nav-links li a:hover .mobile-nav-arrow { transform: translateX(4px); color: var(--ink-2); }
 .mobile-nav-footer {
   padding: 24px 28px;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
-
 .mobile-nav-email {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -3236,23 +3204,19 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   word-break: break-all;
   transition: color 0.2s ease;
 }
-
 .mobile-nav-email:hover { color: var(--ink-2); }
 
 
-/* ============================================================
-   TOAST VARIANTS (success / error)
-   ============================================================ */
+/* ================================================================
+   TOAST VARIANTS
+   ================================================================ */
 .toast-success .toast-dot { background: #4ade80; }
 .toast-error   .toast-dot { background: #f87171; }
 .toast-dot-error           { background: #f87171 !important; animation: pulse 1.5s infinite; }
-
 .toast-error {
   border-color: rgba(248, 113, 113, 0.3);
   background: #1a0a0a;
 }
-
-/* Disabled submit button */
 .cf-submit:disabled {
   opacity: 0.65;
   cursor: not-allowed;
@@ -3260,87 +3224,269 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 }
 
 
-/* ============================================================
-   MOBILE RESPONSIVENESS FIXES
-   ============================================================ */
+/* ================================================================
+   GLOBAL TEXT OVERFLOW GUARDS
+   ================================================================ */
+.section-big-title  { word-break: break-word; max-width: 100%; }
+.sc-card-title      { word-break: break-word; }
+.hero-left-title    { white-space: normal !important; }
 
-/* Fix hero title overflow on narrow screens */
-.hero-left-title {
-  white-space: normal !important;
+
+/* ================================================================
+   â‰¤ 1200px  (large tablet / small laptop)
+   ================================================================ */
+@media (max-width: 1200px) {
+  .hero-left-content { max-width: clamp(360px, 50vw, 650px); }
+  .hero-right-photo-zone { width: 44vw; }
+  .hero-main-name { font-size: clamp(4rem, 9vw, 10rem); }
 }
 
-/* Fix showcase cards on mobile (400px minmax is too wide) */
-@media (max-width: 500px) {
-  .showcase-cards-grid {
-    grid-template-columns: 1fr !important;
+
+/* ================================================================
+   â‰¤ 1024px  (tablet landscape)
+   ================================================================ */
+@media (max-width: 1024px) {
+  .hero-fluid-inner { padding-left: clamp(24px, 4vw, 80px); }
+  .hero-left-content { max-width: 55vw; }
+  .hero-right-photo-zone { width: 42vw; }
+}
+
+
+/* ================================================================
+   â‰¤ 900px  (tablet portrait / nav collapse)
+   ================================================================ */
+@media (max-width: 900px) {
+  /* Nav */
+  .nav-right-links { gap: 20px; }
+
+  /* Hero: stack vertically */
+  .hero {
+    height: auto;
+    min-height: 100vh;
   }
-}
+  .hero-fluid-inner {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 90px 24px 40px;
+    height: auto;
+    min-height: 100vh;
+    gap: 0;
+  }
+  .hero-left-content {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+    z-index: 4;
+  }
+  .hero-main-name { font-size: clamp(4rem, 14vw, 9rem); }
+  .hero-left-title { text-align: center; }
+  .hero-left-tagline { text-align: center; max-width: 100%; }
+  .hero-btn-row { justify-content: center; }
 
-/* About layout: stack vertically on tablet */
-@media (max-width: 860px) {
+  .hero-right-photo-zone {
+    position: relative;
+    width: min(500px, 90vw);
+    height: clamp(300px, 50vw, 480px);
+    margin-top: 32px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .hero-right-photo-zone img {
+    -webkit-mask-image: none;
+    mask-image: none;
+    border-radius: 16px;
+    object-position: top center;
+  }
+
+  /* About */
   .about-layout {
     flex-direction: column;
     align-items: flex-start;
-    gap: 48px;
+    gap: 40px;
   }
   .about-right {
     width: 100%;
     justify-content: center;
     padding-top: 0;
   }
-  .about-big-title {
-    font-size: clamp(4rem, 16vw, 8rem);
+  .about-big-title { font-size: clamp(4rem, 14vw, 8rem); }
+
+  /* Skills */
+  .skills-grid { grid-template-columns: 1fr; }
+
+  /* Contact */
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+
+
+/* ================================================================
+   â‰¤ 768px  (standard mobile breakpoint)
+   ================================================================ */
+@media (max-width: 768px) {
+  /* Nav */
+  .nav-right-links { gap: 16px; }
+  .nav-clock { display: none; }
+  .container { padding: 0 20px; }
+
+  /* Sections */
+  .section { padding: 72px 0; }
+  .about-section { padding: 72px 0 48px; }
+  .contact-section { padding: 72px 0; }
+
+  /* Hero buttons - stack if very narrow */
+  .hero-btn-row { gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .hero-pill-btn { padding: 12px 26px; font-size: 0.8rem; }
+
+  /* Exp items */
+  .exp-item { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
+  .exp-role  { font-size: 1.2rem; }
+
+  /* About panel */
+  .about-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    right: 0 !important;
+    border-radius: 20px 20px 0 0;
+    bottom: 0;
+    top: auto;
+    max-height: 85vh;
+    overflow-y: auto;
   }
+
+  /* Modal */
+  .modal-box { max-width: 100%; margin: 0; border-radius: 12px; }
+  .modal-body { padding: 20px; }
+  .modal-title { font-size: 1.4rem; }
+
+  /* Contact */
+  .contact-big { font-size: clamp(2.6rem, 10vw, 4.5rem); }
+
+  /* Footer */
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
-/* Nav padding on very small screens */
-@media (max-width: 400px) {
-  .nav-fluid-inner { padding: 0 16px; }
-}
 
-/* Hero photo zone height on small screens */
+/* ================================================================
+   â‰¤ 640px  (mobile â€” hamburger visible)
+   ================================================================ */
 @media (max-width: 640px) {
+  /* Nav */
+  .nav-right-links { display: none; }
+  .nav-hamburger   { display: flex; }
+  .nav-fluid-inner { padding: 0 20px; }
+
+  /* Hero */
+  .hero-fluid-inner { padding: 80px 16px 32px; }
+  .hero-main-name   { font-size: clamp(3.6rem, 16vw, 7rem); }
+  .hero-badge       { font-size: 0.66rem; padding: 6px 14px; }
+  .hero-left-tagline { font-size: 0.9rem; }
+  .hero-pill-btn    { padding: 11px 22px; font-size: 0.78rem; }
   .hero-right-photo-zone {
-    height: 300px !important;
+    width: min(380px, 92vw);
+    height: clamp(260px, 60vw, 380px);
+    margin-top: 24px;
   }
-  .hero-main-name {
-    font-size: clamp(3.5rem, 18vw, 7rem) !important;
-  }
-  .hero-left-content {
-    padding-bottom: 0;
-  }
-}
 
-/* Section padding on mobile */
-@media (max-width: 600px) {
-  .about-section { padding: 60px 0 40px; }
+  /* Intro */
+  .intro-card    { padding: 28px 20px; border-radius: 18px; }
+  .intro-heading { font-size: clamp(1.3rem, 5vw, 1.6rem); }
+  .intro-sub     { font-size: 0.82rem; }
+  .intro-skip-btn { top: 16px; right: 16px; padding: 7px 14px; font-size: 0.7rem; }
+  .intro-icons   { gap: 10px; }
+  .intro-icon-btn { width: 42px; height: 42px; }
+
+  /* Skills */
+  .tech-card-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .tech-card { padding: 18px 8px; }
+
+  /* About */
+  .about-big-title { font-size: clamp(3.2rem, 16vw, 6rem); }
+  .about-body-text { font-size: 0.85rem; }
+  .about-buttons   { flex-direction: column; gap: 10px; }
+  .btn-outline-red,
+  .btn-solid-dark  { width: 100%; text-align: center; }
+
+  /* Showcase */
+  .showcase-cards-grid {
+    grid-template-columns: 1fr !important;
+    min-width: 0;
+  }
+  .showcase-tab-group { width: 100%; }
+  .showcase-tab { padding: 8px 16px; font-size: 0.72rem; }
+
+  /* Achievements */
+  .ach-strip { grid-template-columns: 1fr; }
+
+  /* Tech stack showcase */
+  .tech-stack-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Contact */
+  .contact-big { font-size: clamp(2.2rem, 12vw, 3.5rem); }
   .contact-section { padding: 60px 0; }
-  .section { padding: 60px 0; }
-  .contact-big {
-    font-size: clamp(2.4rem, 12vw, 4rem);
-    margin-bottom: 24px;
+
+  /* Section titles */
+  .section-big-title { font-size: clamp(1.6rem, 7vw, 2.5rem); letter-spacing: 0.02em; }
+}
+
+
+/* ================================================================
+   â‰¤ 480px  (small phones)
+   ================================================================ */
+@media (max-width: 480px) {
+  /* Nav */
+  .nav-fluid-inner { padding: 0 16px; }
+  .nav-brand       { font-size: 0.75rem; }
+  .nav-brand-icon  { display: none; } /* hide logo SVG to save space */
+
+  /* Hero */
+  .hero-fluid-inner { padding: 72px 14px 28px; }
+  .hero-main-name   { font-size: clamp(3rem, 18vw, 5.5rem); }
+  .hero-left-title  { font-size: clamp(1rem, 4.5vw, 1.4rem); }
+  .hero-badge       { font-size: 0.6rem; padding: 5px 10px; letter-spacing: 0.08em; }
+  .hero-right-photo-zone {
+    width: min(320px, 96vw);
+    height: clamp(220px, 65vw, 340px);
+    margin-top: 20px;
   }
-  .modal-body { padding: 20px 20px; }
-  .modal-title { font-size: 1.5rem; }
+  .hero-btn-row { flex-direction: column; width: 100%; gap: 10px; }
+  .hero-pill-btn { width: 100%; justify-content: center; }
+
+  /* Skills */
+  .tech-card-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .tech-card-icon { font-size: 1.3rem; }
+
+  /* Contact */
+  .c-val { font-size: 0.78rem; }
+  .c-label { font-size: 0.58rem; width: 60px; }
+  .contact-big { font-size: clamp(2rem, 13vw, 3rem); }
+
+  /* Section heading */
+  .section-big-title { font-size: clamp(1.4rem, 8vw, 2rem); }
+
+  /* Showcase tabs */
+  .showcase-tab-group { flex-wrap: wrap; gap: 6px; border-radius: 12px; }
+  .showcase-tab { border-radius: 8px; }
+
+  /* Tech stack grid */
+  .tech-stack-grid { grid-template-columns: repeat(2, 1fr); }
+  .tech-stack-cell { padding: 18px 14px; }
+
+  /* Ach */
+  .ach-cell { padding: 22px 18px; }
 }
 
-/* Fix intro card on very small screens */
-@media (max-width: 420px) {
-  .intro-card {
-    padding: 28px 20px 24px;
-    border-radius: 18px;
-  }
-  .intro-heading { font-size: 1.5rem; }
-  .intro-skip-btn { top: 16px; right: 16px; }
+
+/* ================================================================
+   â‰¤ 380px  (very small â€” iPhone SE, etc.)
+   ================================================================ */
+@media (max-width: 380px) {
+  .hero-main-name { font-size: clamp(2.6rem, 18vw, 4.5rem); }
+  .nav-brand      { font-size: 0.68rem; }
+  .container      { padding: 0 14px; }
+  .hero-fluid-inner { padding: 68px 12px 24px; }
+  .tech-card-grid { grid-template-columns: repeat(2, 1fr); }
+  .intro-heading  { font-size: 1.2rem; }
+  .about-big-title { font-size: clamp(2.8rem, 18vw, 5rem); }
 }
 
-/* Ensure section-big-title doesn't overflow */
-.section-big-title {
-  word-break: break-word;
-  max-width: 100%;
-}
-
-/* Showcase card label overflow fix */
-.sc-card-title {
-  word-break: break-word;
-}
