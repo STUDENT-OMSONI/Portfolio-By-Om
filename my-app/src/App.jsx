@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import emailjs from '@emailjs/browser';
 import omPhoto from './assets/om_photo.jpg';
 import omPhotoHero from './assets/om_photo_hero.png';
 import project1Img from './assets/project1.png';
@@ -501,12 +502,15 @@ export default function App() {
 
   const [introShown,   setIntroShown]   = useState(false);
   const [navScrolled,  setNavScrolled]  = useState(false);
+  const [menuOpen,     setMenuOpen]     = useState(false);
   const [aboutOpen,    setAboutOpen]    = useState(false);
   const [showCard,     setShowCard]     = useState(true);
   const [activeTab,    setActiveTab]    = useState('projects');
   const [selectedProj, setSelectedProj] = useState(null);
-  const [toast,        setToast]        = useState(false);
+  const [toast,        setToast]        = useState({ show: false, success: true, msg: '' });
+  const [sending,      setSending]      = useState(false);
   const [form,         setForm]         = useState({ name: '', email: '', topic: 'Data Analytics', message: '' });
+  const formRef = useRef(null);
 
   const LINKEDIN  = 'https://www.linkedin.com/in/om-soni-407789317';
   const INSTAGRAM = 'https://www.instagram.com/__om_soni__08?igsh=aWZ2ZmozdjM5NG85';
@@ -520,31 +524,69 @@ export default function App() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  /* Close mobile menu on scroll */
   useEffect(() => {
-    if (!toast) return;
-    const t = setTimeout(() => setToast(false), 4000);
+    if (!menuOpen) return;
+    const fn = () => setMenuOpen(false);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!toast.show) return;
+    const t = setTimeout(() => setToast({ show: false, success: true, msg: '' }), 4500);
     return () => clearTimeout(t);
   }, [toast]);
 
   useEffect(() => {
-    const fn = (e) => { if (e.key === 'Escape') { setSelectedProj(null); setAboutOpen(false); }};
+    const fn = (e) => { if (e.key === 'Escape') { setSelectedProj(null); setAboutOpen(false); setMenuOpen(false); }};
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
   }, []);
 
-  /* Lock scroll when modal open */
+  /* Lock scroll when modal/menu open */
   useEffect(() => {
-    document.body.style.overflow = (selectedProj || aboutOpen) ? 'hidden' : '';
-  }, [selectedProj, aboutOpen]);
+    document.body.style.overflow = (selectedProj || aboutOpen || menuOpen) ? 'hidden' : '';
+  }, [selectedProj, aboutOpen, menuOpen]);
 
   const scrollTo = useCallback((id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setToast(true);
-    setForm({ name: '', email: '', topic: 'Data Analytics', message: '' });
+    const serviceId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    /* If EmailJS keys are not configured, show a friendly message */
+    if (!serviceId || !templateId || !publicKey) {
+      setToast({ show: true, success: false, msg: 'Email service not configured yet. Please reach out directly at omsoni2006456@gmail.com' });
+      return;
+    }
+
+    setSending(true);
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name:    form.name,
+          from_email:   form.email,
+          topic:        form.topic,
+          message:      form.message,
+          to_email:     'omsoni2006456@gmail.com',
+        },
+        publicKey
+      );
+      setToast({ show: true, success: true, msg: "Message sent! Om will reply soon. ✓" });
+      setForm({ name: '', email: '', topic: 'Data Analytics', message: '' });
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      setToast({ show: true, success: false, msg: 'Failed to send. Please email omsoni2006456@gmail.com directly.' });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -604,8 +646,43 @@ export default function App() {
               </a>
             ))}
           </div>
+
+          {/* Hamburger — mobile only */}
+          <button
+            className={`nav-hamburger ${menuOpen ? 'open' : ''}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            <span /><span /><span />
+          </button>
         </div>
       </nav>
+
+      {/* ─── MOBILE NAV DRAWER ─── */}
+      {menuOpen && (
+        <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)}>
+          <nav className="mobile-nav-drawer" onClick={e => e.stopPropagation()}>
+            <div className="mobile-nav-header">
+              <span className="mobile-nav-brand">OM SONI</span>
+              <button className="mobile-nav-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">✕</button>
+            </div>
+            <ul className="mobile-nav-links">
+              {[['home','Home'],['about','About'],['skills','Skills'],['work','Showcase'],['contact','Contact']].map(([id,label]) => (
+                <li key={id}>
+                  <a href={`#${id}`} onClick={(e) => { e.preventDefault(); setMenuOpen(false); setTimeout(() => scrollTo(id), 80); }}>
+                    {label}
+                    <span className="mobile-nav-arrow">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mobile-nav-footer">
+              <a href={`mailto:${EMAIL}`} className="mobile-nav-email">{EMAIL}</a>
+            </div>
+          </nav>
+        </div>
+      )}
 
       {/* ─── HERO ─── */}
       <section id="home" className="hero">
@@ -1018,9 +1095,9 @@ export default function App() {
                   <textarea placeholder="Tell me about your project or opportunity..."
                     value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required />
                 </div>
-                <button type="submit" className="cf-submit">
-                  Send Message
-                  <span className="cf-submit-arrow">→</span>
+                <button type="submit" className="cf-submit" disabled={sending}>
+                  {sending ? 'Sending…' : 'Send Message'}
+                  <span className="cf-submit-arrow">{sending ? '⏳' : '→'}</span>
                 </button>
               </form>
             </div>
@@ -1147,10 +1224,10 @@ export default function App() {
       )}
 
       {/* ─── TOAST ─── */}
-      {toast && (
-        <div className="toast">
-          <span className="toast-dot" />
-          Message sent! Om will reply soon.
+      {toast.show && (
+        <div className={`toast ${toast.success ? 'toast-success' : 'toast-error'}`}>
+          <span className={`toast-dot ${toast.success ? '' : 'toast-dot-error'}`} />
+          {toast.msg}
         </div>
       )}
     </>

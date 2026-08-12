@@ -3070,3 +3070,277 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
 @media (max-width: 600px) {
   .tech-card-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+
+/* ============================================================
+   HAMBURGER BUTTON — mobile nav toggle
+   ============================================================ */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  z-index: 600;
+}
+
+.nav-hamburger:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.25);
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s var(--ease-expo), opacity 0.2s ease, width 0.3s var(--ease-expo);
+  transform-origin: center;
+}
+
+/* X state when open */
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+@media (max-width: 640px) {
+  .nav-hamburger { display: flex; }
+}
+
+
+/* ============================================================
+   MOBILE NAV DRAWER
+   ============================================================ */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 550;
+  animation: fadeOverlay 0.22s ease;
+}
+
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 88vw);
+  background: #0a0a0a;
+  border-left: 1px solid rgba(255,255,255,0.1);
+  z-index: 560;
+  display: flex;
+  flex-direction: column;
+  animation: drawerSlideIn 0.32s var(--ease-expo) forwards;
+  overflow-y: auto;
+}
+
+@keyframes drawerSlideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.mobile-nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+.mobile-nav-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-close:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+.mobile-nav-links {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+}
+
+.mobile-nav-links li a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: color 0.2s ease, background 0.2s ease, padding-left 0.2s ease;
+}
+
+.mobile-nav-links li a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.04);
+  padding-left: 36px;
+}
+
+.mobile-nav-arrow {
+  font-size: 0.9rem;
+  color: var(--ink-3);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav-links li a:hover .mobile-nav-arrow {
+  transform: translateX(4px);
+  color: var(--ink-2);
+}
+
+.mobile-nav-footer {
+  padding: 24px 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.mobile-nav-email {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  word-break: break-all;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-email:hover { color: var(--ink-2); }
+
+
+/* ============================================================
+   TOAST VARIANTS (success / error)
+   ============================================================ */
+.toast-success .toast-dot { background: #4ade80; }
+.toast-error   .toast-dot { background: #f87171; }
+.toast-dot-error           { background: #f87171 !important; animation: pulse 1.5s infinite; }
+
+.toast-error {
+  border-color: rgba(248, 113, 113, 0.3);
+  background: #1a0a0a;
+}
+
+/* Disabled submit button */
+.cf-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  filter: none;
+}
+
+
+/* ============================================================
+   MOBILE RESPONSIVENESS FIXES
+   ============================================================ */
+
+/* Fix hero title overflow on narrow screens */
+.hero-left-title {
+  white-space: normal !important;
+}
+
+/* Fix showcase cards on mobile (400px minmax is too wide) */
+@media (max-width: 500px) {
+  .showcase-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* About layout: stack vertically on tablet */
+@media (max-width: 860px) {
+  .about-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
+  }
+  .about-right {
+    width: 100%;
+    justify-content: center;
+    padding-top: 0;
+  }
+  .about-big-title {
+    font-size: clamp(4rem, 16vw, 8rem);
+  }
+}
+
+/* Nav padding on very small screens */
+@media (max-width: 400px) {
+  .nav-fluid-inner { padding: 0 16px; }
+}
+
+/* Hero photo zone height on small screens */
+@media (max-width: 640px) {
+  .hero-right-photo-zone {
+    height: 300px !important;
+  }
+  .hero-main-name {
+    font-size: clamp(3.5rem, 18vw, 7rem) !important;
+  }
+  .hero-left-content {
+    padding-bottom: 0;
+  }
+}
+
+/* Section padding on mobile */
+@media (max-width: 600px) {
+  .about-section { padding: 60px 0 40px; }
+  .contact-section { padding: 60px 0; }
+  .section { padding: 60px 0; }
+  .contact-big {
+    font-size: clamp(2.4rem, 12vw, 4rem);
+    margin-bottom: 24px;
+  }
+  .modal-body { padding: 20px 20px; }
+  .modal-title { font-size: 1.5rem; }
+}
+
+/* Fix intro card on very small screens */
+@media (max-width: 420px) {
+  .intro-card {
+    padding: 28px 20px 24px;
+    border-radius: 18px;
+  }
+  .intro-heading { font-size: 1.5rem; }
+  .intro-skip-btn { top: 16px; right: 16px; }
+}
+
+/* Ensure section-big-title doesn't overflow */
+.section-big-title {
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Showcase card label overflow fix */
+.sc-card-title {
+  word-break: break-word;
+}
