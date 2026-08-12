@@ -559,9 +559,14 @@ export default function App() {
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    /* If EmailJS keys are not configured, show a friendly message */
+    /* If EmailJS is not configured → open pre-filled mailto: so form always works */
     if (!serviceId || !templateId || !publicKey) {
-      setToast({ show: true, success: false, msg: 'Email service not configured yet. Please reach out directly at omsoni2006456@gmail.com' });
+      const subject = encodeURIComponent(`[Portfolio] ${form.topic} — from ${form.name}`);
+      const body    = encodeURIComponent(
+        `Hi Om,\n\nName: ${form.name}\nEmail: ${form.email}\nTopic: ${form.topic}\n\nMessage:\n${form.message}`
+      );
+      window.open(`mailto:omsoni2006456@gmail.com?subject=${subject}&body=${body}`, '_self');
+      setToast({ show: true, success: true, msg: '📧 Opening your email client — just hit Send!' });
       return;
     }
 
@@ -579,15 +584,22 @@ export default function App() {
         },
         publicKey
       );
-      setToast({ show: true, success: true, msg: "Message sent! Om will reply soon. ✓" });
+      setToast({ show: true, success: true, msg: 'Message sent! Om will reply soon. ✓' });
       setForm({ name: '', email: '', topic: 'Data Analytics', message: '' });
     } catch (err) {
       console.error('EmailJS error:', err);
-      setToast({ show: true, success: false, msg: 'Failed to send. Please email omsoni2006456@gmail.com directly.' });
+      /* Fallback: open mailto if EmailJS call itself fails */
+      const subject = encodeURIComponent(`[Portfolio] ${form.topic} — from ${form.name}`);
+      const body    = encodeURIComponent(
+        `Hi Om,\n\nName: ${form.name}\nEmail: ${form.email}\nTopic: ${form.topic}\n\nMessage:\n${form.message}`
+      );
+      window.open(`mailto:omsoni2006456@gmail.com?subject=${subject}&body=${body}`, '_self');
+      setToast({ show: true, success: true, msg: '📧 Opening your email client as backup — just hit Send!' });
     } finally {
       setSending(false);
     }
   };
+
 
   return (
     <>
