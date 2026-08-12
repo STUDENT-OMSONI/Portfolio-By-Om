@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    OM SONI PORTFOLIO â€” WEBKAIZEN-INSPIRED DESIGN SYSTEM
    Pure Black Â· Bold White Â· Bebas Neue Display
    ============================================================ */
@@ -651,23 +651,37 @@ h1:not(.hero-left-title):hover, h2:hover, h3:hover, h4:hover, .sec-title:hover, 
   transform: scale(1.05);
 }
 
-/* OM cursive line drawing animation */
+/* OS Monogram draw-in animation */
 .om-path {
-  stroke-dasharray: 200;
-  stroke-dashoffset: 200;
-  animation: drawOm 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards,
-             omGlowPulse 4s ease-in-out 2.5s infinite alternate;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: drawOS 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards,
+             osGlowPulse 3.5s ease-in-out 1.8s infinite alternate;
 }
 
-@keyframes drawOm {
-  0% { stroke-dashoffset: 200; opacity: 0; }
-  10% { opacity: 1; }
-  100% { stroke-dashoffset: 0; opacity: 1; }
+/* Stagger circle vs S vs border */
+circle.om-path { animation-delay: 0.1s; }
+path.om-path   { animation-delay: 0.5s; }
+rect.om-path   { animation-delay: 0s; }
+
+@keyframes drawOS {
+  0%   { stroke-dashoffset: 300; opacity: 0; }
+  8%   { opacity: 1; }
+  100% { stroke-dashoffset: 0;   opacity: 1; }
 }
 
-@keyframes omGlowPulse {
-  0% { filter: drop-shadow(0 0 2px rgba(197, 158, 89, 0.3)); }
-  100% { filter: drop-shadow(0 0 8px rgba(249, 229, 150, 0.6)); }
+@keyframes osGlowPulse {
+  0%   { filter: drop-shadow(0 0 1.5px rgba(197, 158, 89, 0.25)); }
+  100% { filter: drop-shadow(0 0 7px  rgba(249, 229, 150, 0.65)); }
+}
+
+/* Logo hover: gentle scale */
+.animated-logo-svg {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+.nav-brand:hover .animated-logo-svg {
+  transform: scale(1.08);
 }
 
 .nav-left-zone {

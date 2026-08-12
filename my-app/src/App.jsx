@@ -173,45 +173,74 @@ function useParallax(disabled) {
   return { wrapRef, nameRef, photoRef };
 }
 
-/* ─── LOGO — custom OM SONI monogram ─── */
-function Logo({ size = 40 }) {
-  // We use a wider viewBox for the custom "om" cursive logo
-  const w = size * 2.2;
-  const h = size * 1.1;
+/* ─── LOGO — Official OS Monogram ─── */
+function Logo({ size = 38 }) {
   return (
-    <svg width={w} height={h} viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="animated-logo-svg">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Om Soni Logo"
+      className="animated-logo-svg"
+    >
       <defs>
-        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#C59E59" />
-          <stop offset="25%" stop-color="#F9E596" />
-          <stop offset="50%" stop-color="#C59E59" />
-          <stop offset="75%" stop-color="#F9E596" />
-          <stop offset="100%" stop-color="#C59E59" />
+        <radialGradient id="navBgGrad" cx="50%" cy="50%" r="70%">
+          <stop offset="0%"   stopColor="#1a1a1a"/>
+          <stop offset="100%" stopColor="#000000"/>
+        </radialGradient>
+        <linearGradient id="navGold" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stopColor="#A07830"/>
+          <stop offset="30%"  stopColor="#F5D97A"/>
+          <stop offset="55%"  stopColor="#C59E59"/>
+          <stop offset="80%"  stopColor="#F9E596"/>
+          <stop offset="100%" stopColor="#B8892A"/>
         </linearGradient>
-        <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="2" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        <filter id="navGlow" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="1.2" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
         </filter>
       </defs>
-      <path 
+
+      {/* Background rounded square */}
+      <rect width="64" height="64" rx="14" fill="url(#navBgGrad)"/>
+      {/* Thin gold border */}
+      <rect x="2" y="2" width="60" height="60" rx="13"
+        stroke="url(#navGold)" strokeWidth="0.75" fill="none" opacity="0.5"
         className="om-path"
-        d="M 27,13 
-           A 11,11 0 1,0 29,25 
-           C 32,25 35,24 35,20 
-           A 9,9 0 0,1 53,20 
-           L 53,29 
-           L 53,20 
-           A 9,9 0 0,1 71,20 
-           L 71,29" 
-        stroke="url(#goldGradient)" 
-        strokeWidth="5.5" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        filter="url(#goldGlow)"
       />
+
+      {/* O — geometric circle */}
+      <circle
+        cx="20" cy="32" r="10"
+        stroke="url(#navGold)"
+        strokeWidth="2.8"
+        fill="none"
+        filter="url(#navGlow)"
+        className="om-path"
+      />
+
+      {/* S — clean modern letterform */}
+      <path
+        d="M 50,22 C 50,19 47.5,17.5 44,17.5 C 40.5,17.5 38,19.5 38,22.5 C 38,25.5 40,26.8 44,28.5 C 48,30.2 50,31.5 50,34.5 C 50,37.5 47.5,39.5 44,39.5 C 40.5,39.5 38,38 38,35"
+        stroke="url(#navGold)"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        fill="none"
+        filter="url(#navGlow)"
+        className="om-path"
+      />
+
+      {/* Divider dot */}
+      <circle cx="31.5" cy="32" r="1.2" fill="url(#navGold)" opacity="0.75"/>
     </svg>
   );
 }
+
 
 /* ─── LIVE CLOCK ─── */
 function LiveClock() {
