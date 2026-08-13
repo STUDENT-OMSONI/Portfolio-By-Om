@@ -778,37 +778,35 @@ export default function App() {
             </div>
 
             {/* Right: hanging ID card */}
-            {showCard && (
-              <div className="about-right" data-reveal="right">
-                <div className="id-card-container">
-                  <div className="id-card-string" />
-                  <div className="id-card-clip">
+            <div className={`about-right ${showCard ? '' : 'card-hidden'}`} data-reveal="right">
+              <div className="id-card-container">
+                <div className="id-card-string" />
+                <div className="id-card-clip">
+                  <div className="id-card-top-hole" />
+                </div>
+                <div className="id-card">
+                  <div className="id-card-top">
                     <div className="id-card-top-hole" />
                   </div>
-                  <div className="id-card">
-                    <div className="id-card-top">
-                      <div className="id-card-top-hole" />
-                    </div>
-                    <img
-                      src={omPhoto}
-                      alt="Om Soni"
-                      className="id-card-photo"
-                    />
-                    <div className="id-card-info">
-                      <div className="id-card-org">SATI Vidisha · AI & DS</div>
-                      <div className="id-card-name-row">
-                        <div>
-                          <div className="id-card-label">Name</div>
-                          <div className="id-card-name">Om Soni</div>
-                          <div className="id-card-role">Data Analytics · AI & DS</div>
-                        </div>
-                        <span style={{ fontSize: '1rem' }}>🤚</span>
+                  <img
+                    src={omPhoto}
+                    alt="Om Soni"
+                    className="id-card-photo"
+                  />
+                  <div className="id-card-info">
+                    <div className="id-card-org">SATI Vidisha · AI & DS</div>
+                    <div className="id-card-name-row">
+                      <div>
+                        <div className="id-card-label">Name</div>
+                        <div className="id-card-name">Om Soni</div>
+                        <div className="id-card-role">Data Analytics · AI & DS</div>
                       </div>
+                      <span style={{ fontSize: '1rem' }}>🤚</span>
                     </div>
                   </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>

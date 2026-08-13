@@ -1633,7 +1633,7 @@ b:hover::after {
   border-color: var(--border-md);
 }
 
-/* ID Card â€” hanging from top */
+/* ID Card — hanging from top */
 .about-right {
   display: flex;
   justify-content: center;
@@ -1641,6 +1641,14 @@ b:hover::after {
   padding-top: 20px;
   flex-shrink: 0;
   position: relative;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+}
+
+.about-right.card-hidden {
+  opacity: 0 !important;
+  transform: translateX(40px) scale(0.9) !important;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .id-card-container {
