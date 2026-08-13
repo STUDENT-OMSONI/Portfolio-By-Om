@@ -1236,6 +1236,7 @@ b:hover::after {
   }
 
   .hero-left-content {
+    width: 100%;
     max-width: 100%;
     align-items: center;
     text-align: center;
@@ -1305,8 +1306,9 @@ b:hover::after {
   }
 
   .hero-left-content {
-    max-width: 90%;
-    left: 20px;
+    width: 100%;
+    max-width: 100%;
+    left: 0;
   }
 }
 
