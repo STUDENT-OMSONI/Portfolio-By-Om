@@ -14,19 +14,19 @@ function PotholeUI() {
       <div style={{ background: '#fff', padding: '30px', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', textAlign: 'center', width: '100%', maxWidth: '600px' }}>
         <div style={{ color: '#1a3b86', margin: '0 0 8px 0', fontSize: '24px', fontWeight: 'bold', animation: 'none' }}>Pothole Detection System</div>
         <p style={{ color: '#333', fontSize: '13px', marginBottom: '24px', animation: 'none' }}>Select Detection Mode</p>
-        
+
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
           <div style={{ flex: 1, border: '1px solid #eaeaea', borderRadius: '6px', padding: '16px 10px', background: '#fafafa' }}>
-             <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>📷 Image Detection</div>
-             <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Upload an image and detect potholes</p>
+            <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>📷 Image Detection</div>
+            <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Upload an image and detect potholes</p>
           </div>
           <div style={{ flex: 1, border: '1px solid #eaeaea', borderRadius: '6px', padding: '16px 10px', background: '#fafafa' }}>
-             <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>🎥 Video Detection</div>
-             <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Upload a video and analyze frames</p>
+            <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>🎥 Video Detection</div>
+            <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Upload a video and analyze frames</p>
           </div>
           <div style={{ flex: 1, border: '1px solid #b2ece3', borderRadius: '6px', padding: '16px 10px', background: '#dcfcf8' }}>
-             <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>📡 Live Webcam</div>
-             <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Real-time pothole detection</p>
+            <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>📡 Live Webcam</div>
+            <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Real-time pothole detection</p>
           </div>
         </div>
       </div>
@@ -69,10 +69,10 @@ function usePrefersReducedMotion() {
 
 /* ─── CURSOR (with optional "VIEW" label) ─── */
 function useCursor(disabled) {
-  const dotRef  = useRef(null);
+  const dotRef = useRef(null);
   const ringRef = useRef(null);
-  const mouse   = useRef({ x: 0, y: 0 });
-  const ring    = useRef({ x: 0, y: 0 });
+  const mouse = useRef({ x: 0, y: 0 });
+  const ring = useRef({ x: 0, y: 0 });
   const [label, setLabel] = useState('');
 
   useEffect(() => {
@@ -83,7 +83,7 @@ function useCursor(disabled) {
       mouse.current = { x: e.clientX, y: e.clientY };
       if (dotRef.current) {
         dotRef.current.style.left = e.clientX + 'px';
-        dotRef.current.style.top  = e.clientY + 'px';
+        dotRef.current.style.top = e.clientY + 'px';
       }
     };
     const onEnter = (e) => {
@@ -100,7 +100,7 @@ function useCursor(disabled) {
       ring.current.y = lerp(ring.current.y, mouse.current.y, 0.1);
       if (ringRef.current) {
         ringRef.current.style.left = ring.current.x + 'px';
-        ringRef.current.style.top  = ring.current.y + 'px';
+        ringRef.current.style.top = ring.current.y + 'px';
       }
       raf = requestAnimationFrame(tick);
     };
@@ -153,17 +153,17 @@ function useMagnetic(disabled) {
 
 /* ─── HERO PARALLAX (subtle reaction to mouse position) ─── */
 function useParallax(disabled) {
-  const wrapRef  = useRef(null);
-  const nameRef  = useRef(null);
+  const wrapRef = useRef(null);
+  const nameRef = useRef(null);
   const photoRef = useRef(null);
 
   useEffect(() => {
     if (disabled) return;
     if (window.matchMedia('(hover: none)').matches) return;
     const onMove = (e) => {
-      const nx = (e.clientX / window.innerWidth  - 0.5); // -0.5..0.5
+      const nx = (e.clientX / window.innerWidth - 0.5); // -0.5..0.5
       const ny = (e.clientY / window.innerHeight - 0.5);
-      if (nameRef.current)  nameRef.current.style.transform  = `translate(${nx * -10}px, ${ny * -6}px)`;
+      if (nameRef.current) nameRef.current.style.transform = `translate(${nx * -10}px, ${ny * -6}px)`;
       if (photoRef.current) photoRef.current.style.transform = `translate(${nx * 7}px, ${ny * 4}px)`;
     };
     window.addEventListener('mousemove', onMove);
@@ -173,74 +173,45 @@ function useParallax(disabled) {
   return { wrapRef, nameRef, photoRef };
 }
 
-/* ─── LOGO — Official OS Monogram ─── */
-function Logo({ size = 38 }) {
+/* ─── LOGO — custom OM SONI monogram ─── */
+function Logo({ size = 40 }) {
+  // We use a wider viewBox for the custom "om" cursive logo
+  const w = size * 2.2;
+  const h = size * 1.1;
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 64 64"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="Om Soni Logo"
-      className="animated-logo-svg"
-    >
+    <svg width={w} height={h} viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="animated-logo-svg">
       <defs>
-        <radialGradient id="navBgGrad" cx="50%" cy="50%" r="70%">
-          <stop offset="0%"   stopColor="#1a1a1a"/>
-          <stop offset="100%" stopColor="#000000"/>
-        </radialGradient>
-        <linearGradient id="navGold" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stopColor="#A07830"/>
-          <stop offset="30%"  stopColor="#F5D97A"/>
-          <stop offset="55%"  stopColor="#C59E59"/>
-          <stop offset="80%"  stopColor="#F9E596"/>
-          <stop offset="100%" stopColor="#B8892A"/>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#C59E59" />
+          <stop offset="25%" stop-color="#F9E596" />
+          <stop offset="50%" stop-color="#C59E59" />
+          <stop offset="75%" stop-color="#F9E596" />
+          <stop offset="100%" stop-color="#C59E59" />
         </linearGradient>
-        <filter id="navGlow" x="-25%" y="-25%" width="150%" height="150%">
-          <feGaussianBlur stdDeviation="1.2" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
+        <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
       </defs>
-
-      {/* Background rounded square */}
-      <rect width="64" height="64" rx="14" fill="url(#navBgGrad)"/>
-      {/* Thin gold border */}
-      <rect x="2" y="2" width="60" height="60" rx="13"
-        stroke="url(#navGold)" strokeWidth="0.75" fill="none" opacity="0.5"
-        className="om-path"
-      />
-
-      {/* O — geometric circle */}
-      <circle
-        cx="20" cy="32" r="10"
-        stroke="url(#navGold)"
-        strokeWidth="2.8"
-        fill="none"
-        filter="url(#navGlow)"
-        className="om-path"
-      />
-
-      {/* S — clean modern letterform */}
       <path
-        d="M 50,22 C 50,19 47.5,17.5 44,17.5 C 40.5,17.5 38,19.5 38,22.5 C 38,25.5 40,26.8 44,28.5 C 48,30.2 50,31.5 50,34.5 C 50,37.5 47.5,39.5 44,39.5 C 40.5,39.5 38,38 38,35"
-        stroke="url(#navGold)"
-        strokeWidth="2.8"
-        strokeLinecap="round"
-        fill="none"
-        filter="url(#navGlow)"
         className="om-path"
+        d="M 27,13 
+           A 11,11 0 1,0 29,25 
+           C 32,25 35,24 35,20 
+           A 9,9 0 0,1 53,20 
+           L 53,29 
+           L 53,20 
+           A 9,9 0 0,1 71,20 
+           L 71,29"
+        stroke="url(#goldGradient)"
+        strokeWidth="5.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        filter="url(#goldGlow)"
       />
-
-      {/* Divider dot */}
-      <circle cx="31.5" cy="32" r="1.2" fill="url(#navGold)" opacity="0.75"/>
     </svg>
   );
 }
-
 
 /* ─── LIVE CLOCK ─── */
 function LiveClock() {
@@ -461,26 +432,26 @@ function IntroScreen({ onDone }) {
         <div className="intro-icons">
           <div className="intro-icon-btn" title="Data Analytics">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 3v18h18"/>
-              <path d="M18 17V9"/>
-              <path d="M13 17V5"/>
-              <path d="M8 17v-3"/>
+              <path d="M3 3v18h18" />
+              <path d="M18 17V9" />
+              <path d="M13 17V5" />
+              <path d="M8 17v-3" />
             </svg>
             <span className="intro-icon-tooltip">Analytics</span>
           </div>
 
           <div className="intro-icon-btn" title="Data Engineering">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
             </svg>
             <span className="intro-icon-tooltip">Engineer</span>
           </div>
 
           <div className="intro-icon-btn" title="Machine Learning & AI">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+              <circle cx="12" cy="12" r="3" />
             </svg>
             <span className="intro-icon-tooltip">AI & ML</span>
           </div>
@@ -526,25 +497,25 @@ export default function App() {
   const { dotRef, ringRef, label: cursorLabel } = useCursor(reducedMotion);
   const { nameRef: heroNameRef, photoRef: heroPhotoRef } = useParallax(reducedMotion);
   const viewWorkBtnRef = useMagnetic(reducedMotion);
-  const resumeBtnRef   = useMagnetic(reducedMotion);
+  const resumeBtnRef = useMagnetic(reducedMotion);
   useReveal();
 
-  const [introShown,   setIntroShown]   = useState(false);
-  const [navScrolled,  setNavScrolled]  = useState(false);
-  const [menuOpen,     setMenuOpen]     = useState(false);
-  const [aboutOpen,    setAboutOpen]    = useState(false);
-  const [showCard,     setShowCard]     = useState(true);
-  const [activeTab,    setActiveTab]    = useState('projects');
+  const [introShown, setIntroShown] = useState(false);
+  const [navScrolled, setNavScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [showCard, setShowCard] = useState(true);
+  const [activeTab, setActiveTab] = useState('projects');
   const [selectedProj, setSelectedProj] = useState(null);
-  const [toast,        setToast]        = useState({ show: false, success: true, msg: '' });
-  const [sending,      setSending]      = useState(false);
-  const [form,         setForm]         = useState({ name: '', email: '', topic: 'Data Analytics', message: '' });
+  const [toast, setToast] = useState({ show: false, success: true, msg: '' });
+  const [sending, setSending] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', topic: 'Data Analytics', message: '' });
   const formRef = useRef(null);
 
-  const LINKEDIN  = 'https://www.linkedin.com/in/om-soni-407789317';
+  const LINKEDIN = 'https://www.linkedin.com/in/om-soni-407789317';
   const INSTAGRAM = 'https://www.instagram.com/__om_soni__08?igsh=aWZ2ZmozdjM5NG85';
-  const EMAIL     = 'omsoni2006456@gmail.com';
-  const PHONE     = '+91 9302496582';
+  const EMAIL = 'omsoni2006456@gmail.com';
+  const PHONE = '+91 9302496582';
   const RESUME_URL = '/Om_Soni_Resume.pdf';
 
   useEffect(() => {
@@ -568,7 +539,7 @@ export default function App() {
   }, [toast]);
 
   useEffect(() => {
-    const fn = (e) => { if (e.key === 'Escape') { setSelectedProj(null); setAboutOpen(false); setMenuOpen(false); }};
+    const fn = (e) => { if (e.key === 'Escape') { setSelectedProj(null); setAboutOpen(false); setMenuOpen(false); } };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
   }, []);
@@ -584,14 +555,14 @@ export default function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const serviceId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     /* If EmailJS is not configured → open pre-filled mailto: so form always works */
     if (!serviceId || !templateId || !publicKey) {
       const subject = encodeURIComponent(`[Portfolio] ${form.topic} — from ${form.name}`);
-      const body    = encodeURIComponent(
+      const body = encodeURIComponent(
         `Hi Om,\n\nName: ${form.name}\nEmail: ${form.email}\nTopic: ${form.topic}\n\nMessage:\n${form.message}`
       );
       window.open(`mailto:omsoni2006456@gmail.com?subject=${subject}&body=${body}`, '_self');
@@ -605,11 +576,11 @@ export default function App() {
         serviceId,
         templateId,
         {
-          from_name:    form.name,
-          from_email:   form.email,
-          topic:        form.topic,
-          message:      form.message,
-          to_email:     'omsoni2006456@gmail.com',
+          from_name: form.name,
+          from_email: form.email,
+          topic: form.topic,
+          message: form.message,
+          to_email: 'omsoni2006456@gmail.com',
         },
         publicKey
       );
@@ -619,7 +590,7 @@ export default function App() {
       console.error('EmailJS error:', err);
       /* Fallback: open mailto if EmailJS call itself fails */
       const subject = encodeURIComponent(`[Portfolio] ${form.topic} — from ${form.name}`);
-      const body    = encodeURIComponent(
+      const body = encodeURIComponent(
         `Hi Om,\n\nName: ${form.name}\nEmail: ${form.email}\nTopic: ${form.topic}\n\nMessage:\n${form.message}`
       );
       window.open(`mailto:omsoni2006456@gmail.com?subject=${subject}&body=${body}`, '_self');
@@ -663,7 +634,7 @@ export default function App() {
           to   { transform: translateX(0%); }
         }
       `}</style>
-      
+
 
 
       {/* INTRO */}
@@ -681,7 +652,7 @@ export default function App() {
           </div>
 
           <div className="nav-right-links">
-            {[['home','Home'],['about','About'],['skills','Skills'],['work','Showcase'],['contact','Contact']].map(([id,label]) => (
+            {[['home', 'Home'], ['about', 'About'], ['skills', 'Skills'], ['work', 'Showcase'], ['contact', 'Contact']].map(([id, label]) => (
               <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id); }}>
                 {label}
               </a>
@@ -709,7 +680,7 @@ export default function App() {
               <button className="mobile-nav-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">✕</button>
             </div>
             <ul className="mobile-nav-links">
-              {[['home','Home'],['about','About'],['skills','Skills'],['work','Showcase'],['contact','Contact']].map(([id,label]) => (
+              {[['home', 'Home'], ['about', 'About'], ['skills', 'Skills'], ['work', 'Showcase'], ['contact', 'Contact']].map(([id, label]) => (
                 <li key={id}>
                   <a href={`#${id}`} onClick={(e) => { e.preventDefault(); setMenuOpen(false); setTimeout(() => scrollTo(id), 80); }}>
                     {label}
@@ -733,7 +704,7 @@ export default function App() {
             <div className="hero-badge formal-animate-1">
               <span>DATA ANALYTICS &amp; AI ENGINEER</span>
             </div>
-            
+
             <div className="hero-main-name formal-animate-2">OM SONI</div>
 
             <h1 className="hero-left-title formal-animate-3">
@@ -985,7 +956,7 @@ export default function App() {
 
           {/* Tab Group */}
           <div className="showcase-tab-group" data-reveal>
-            {[['projects','Projects'],['techstack','Tech Stack'],['achievements','Achievements']].map(([val,label]) => (
+            {[['projects', 'Projects'], ['techstack', 'Tech Stack'], ['achievements', 'Achievements']].map(([val, label]) => (
               <button
                 key={val}
                 className={`showcase-tab ${activeTab === val ? 'active' : ''}`}
@@ -1027,18 +998,18 @@ export default function App() {
           {activeTab === 'techstack' && (
             <div className="tech-stack-grid" data-stagger>
               {[
-                { icon: '🗄️', name: 'SQL',           type: 'Data Analytics' },
-                { icon: '📈', name: 'Power BI',       type: 'Data Visualization' },
-                { icon: '📗', name: 'Excel',          type: 'Data Analytics' },
-                { icon: '🐍', name: 'Python',         type: 'Programming' },
+                { icon: '🗄️', name: 'SQL', type: 'Data Analytics' },
+                { icon: '📈', name: 'Power BI', type: 'Data Visualization' },
+                { icon: '📗', name: 'Excel', type: 'Data Analytics' },
+                { icon: '🐍', name: 'Python', type: 'Programming' },
                 { icon: '📊', name: 'Pandas · NumPy', type: 'Data Science' },
                 { icon: '🤖', name: 'Machine Learning', type: 'AI / ML' },
-                { icon: '👁️', name: 'OpenCV',         type: 'Computer Vision' },
-                { icon: '⚡', name: 'YOLOv8',         type: 'Object Detection' },
-                { icon: '🔥', name: 'PyTorch',        type: 'Deep Learning' },
-                { icon: '🔷', name: 'Figma',          type: 'Design' },
-                { icon: '🎨', name: 'Canva',          type: 'Design' },
-                { icon: '🐙', name: 'Git · GitHub',   type: 'Version Control' },
+                { icon: '👁️', name: 'OpenCV', type: 'Computer Vision' },
+                { icon: '⚡', name: 'YOLOv8', type: 'Object Detection' },
+                { icon: '🔥', name: 'PyTorch', type: 'Deep Learning' },
+                { icon: '🔷', name: 'Figma', type: 'Design' },
+                { icon: '🎨', name: 'Canva', type: 'Design' },
+                { icon: '🐙', name: 'Git · GitHub', type: 'Version Control' },
               ].map((t) => (
                 <div className="tech-stack-cell" key={t.name}>
                   <span className="tech-cell-icon">{t.icon}</span>
@@ -1238,7 +1209,7 @@ export default function App() {
         <div className="modal-overlay" onClick={() => setSelectedProj(null)}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setSelectedProj(null)}>✕</button>
-            
+
             {selectedProj.imgComponent ? (
               <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
                 {selectedProj.imgComponent}
