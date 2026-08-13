@@ -35,7 +35,7 @@ function PotholeUI() {
 }
 
 /* ─── SCROLL REVEAL ─── */
-function useReveal() {
+function useReveal(activeTab) {
   useEffect(() => {
     const selector = '[data-reveal], [data-stagger], .exp-item, .tech-card, .skills-group, .showcase-card, .ach-cell, .tech-stack-cell, .about-left, .about-right, .contact-grid > *';
     const els = document.querySelectorAll(selector);
@@ -51,7 +51,7 @@ function useReveal() {
     );
     els.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
-  }, []);
+  }, [activeTab]);
 }
 
 /* ─── REDUCED MOTION ─── */
@@ -498,8 +498,6 @@ export default function App() {
   const { nameRef: heroNameRef, photoRef: heroPhotoRef } = useParallax(reducedMotion);
   const viewWorkBtnRef = useMagnetic(reducedMotion);
   const resumeBtnRef = useMagnetic(reducedMotion);
-  useReveal();
-
   const [introShown, setIntroShown] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -507,6 +505,7 @@ export default function App() {
   const [showCard, setShowCard] = useState(true);
   const [activeTab, setActiveTab] = useState('projects');
   const [selectedProj, setSelectedProj] = useState(null);
+  useReveal(activeTab);
   const [toast, setToast] = useState({ show: false, success: true, msg: '' });
   const [sending, setSending] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', topic: 'Data Analytics', message: '' });
