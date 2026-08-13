@@ -1645,10 +1645,7 @@ b:hover::after {
 }
 
 .about-right.card-hidden {
-  opacity: 0 !important;
-  transform: translateX(40px) scale(0.9) !important;
-  visibility: hidden;
-  pointer-events: none;
+  display: none !important;
 }
 
 .id-card-container {
