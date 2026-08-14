@@ -554,20 +554,10 @@ export default function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    /* If EmailJS is not configured → open pre-filled mailto: so form always works */
-    if (!serviceId || !templateId || !publicKey) {
-      const subject = encodeURIComponent(`[Portfolio] ${form.topic} — from ${form.name}`);
-      const body = encodeURIComponent(
-        `Hi Om,\n\nName: ${form.name}\nEmail: ${form.email}\nTopic: ${form.topic}\n\nMessage:\n${form.message}`
-      );
-      window.open(`mailto:omsoni2006456@gmail.com?subject=${subject}&body=${body}`, '_self');
-      setToast({ show: true, success: true, msg: '📧 Opening your email client — just hit Send!' });
-      return;
-    }
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_m2pdu3h';
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_j4r8ylr';
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'NMk7icB94IMxOhUgE';
 
     setSending(true);
     try {
@@ -575,10 +565,12 @@ export default function App() {
         serviceId,
         templateId,
         {
-          from_name: form.name,
-          from_email: form.email,
+          name: form.name,
+          email: form.email,
           topic: form.topic,
           message: form.message,
+          from_name: form.name,
+          from_email: form.email,
           to_email: 'omsoni2006456@gmail.com',
         },
         publicKey
@@ -600,9 +592,9 @@ export default function App() {
   };
 
 
-  return (
-    <>
-      <style>{`
+return (
+  <>
+    <style>{`
         /* Removed Card Hanging Animation per request */
 
         /* Title Hover Animation */
@@ -636,609 +628,609 @@ export default function App() {
 
 
 
-      {/* INTRO */}
-      {!introShown && <IntroScreen onDone={() => setIntroShown(true)} />}
+    {/* INTRO */}
+    {!introShown && <IntroScreen onDone={() => setIntroShown(true)} />}
 
-      {/* ─── NAV ─── */}
-      <nav className={`nav ${navScrolled ? 'scrolled' : ''} nav-slide-in`}>
-        <div className="nav-fluid-inner">
-          <div className="nav-left-zone">
-            <div className="nav-brand">
-              <div className="nav-brand-icon"><Logo size={16} /></div>
-              <span>OM SONI <span style={{ opacity: 0.5, fontWeight: 400 }}>· DATA ANALYTICS</span></span>
-            </div>
-            <LiveClock />
+    {/* ─── NAV ─── */}
+    <nav className={`nav ${navScrolled ? 'scrolled' : ''} nav-slide-in`}>
+      <div className="nav-fluid-inner">
+        <div className="nav-left-zone">
+          <div className="nav-brand">
+            <div className="nav-brand-icon"><Logo size={16} /></div>
+            <span>OM SONI <span style={{ opacity: 0.5, fontWeight: 400 }}>· DATA ANALYTICS</span></span>
           </div>
+          <LiveClock />
+        </div>
 
-          <div className="nav-right-links">
+        <div className="nav-right-links">
+          {[['home', 'Home'], ['about', 'About'], ['skills', 'Skills'], ['work', 'Showcase'], ['contact', 'Contact']].map(([id, label]) => (
+            <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id); }}>
+              {label}
+            </a>
+          ))}
+        </div>
+
+        {/* Hamburger — mobile only */}
+        <button
+          className={`nav-hamburger ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+        >
+          <span /><span /><span />
+        </button>
+      </div>
+    </nav>
+
+    {/* ─── MOBILE NAV DRAWER ─── */}
+    {menuOpen && (
+      <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)}>
+        <nav className="mobile-nav-drawer" onClick={e => e.stopPropagation()}>
+          <div className="mobile-nav-header">
+            <span className="mobile-nav-brand">OM SONI</span>
+            <button className="mobile-nav-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">✕</button>
+          </div>
+          <ul className="mobile-nav-links">
             {[['home', 'Home'], ['about', 'About'], ['skills', 'Skills'], ['work', 'Showcase'], ['contact', 'Contact']].map(([id, label]) => (
-              <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id); }}>
-                {label}
-              </a>
+              <li key={id}>
+                <a href={`#${id}`} onClick={(e) => { e.preventDefault(); setMenuOpen(false); setTimeout(() => scrollTo(id), 80); }}>
+                  {label}
+                  <span className="mobile-nav-arrow">→</span>
+                </a>
+              </li>
             ))}
+          </ul>
+          <div className="mobile-nav-footer">
+            <a href={`mailto:${EMAIL}`} className="mobile-nav-email">{EMAIL}</a>
+          </div>
+        </nav>
+      </div>
+    )}
+
+    {/* ─── HERO ─── */}
+    <section id="home" className="hero">
+      <div className="hero-fluid-inner">
+        {/* Left Content Column */}
+        <div className="hero-left-content">
+          <div className="hero-badge formal-animate-1">
+            <span>DATA ANALYTICS &amp; AI ENGINEER</span>
           </div>
 
-          {/* Hamburger — mobile only */}
-          <button
-            className={`nav-hamburger ${menuOpen ? 'open' : ''}`}
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-          >
-            <span /><span /><span />
-          </button>
+          <div className="hero-main-name formal-animate-2">OM SONI</div>
+
+          <h1 className="hero-left-title formal-animate-3">
+            <span>DATA ANALYTICS &amp; AI / </span>
+            <span className="accent-text">DATA SCIENCE.</span>
+          </h1>
+
+          <p className="hero-left-tagline formal-animate-4">
+            Turning raw data into clear, reliable<br />
+            <strong>insights and decisions.</strong>
+          </p>
+
+          <div className="hero-btn-row formal-animate-5">
+            <button ref={viewWorkBtnRef} className="hero-pill-btn hero-pill-primary" onClick={() => scrollTo('work')}>
+              VIEW MY WORK ↗
+            </button>
+            <a ref={resumeBtnRef} href="/Om_Soni_Resume.pdf" download className="hero-pill-btn hero-pill-ghost">
+              DOWNLOAD RESUME
+            </a>
+          </div>
         </div>
-      </nav>
 
-      {/* ─── MOBILE NAV DRAWER ─── */}
-      {menuOpen && (
-        <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)}>
-          <nav className="mobile-nav-drawer" onClick={e => e.stopPropagation()}>
-            <div className="mobile-nav-header">
-              <span className="mobile-nav-brand">OM SONI</span>
-              <button className="mobile-nav-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">✕</button>
-            </div>
-            <ul className="mobile-nav-links">
-              {[['home', 'Home'], ['about', 'About'], ['skills', 'Skills'], ['work', 'Showcase'], ['contact', 'Contact']].map(([id, label]) => (
-                <li key={id}>
-                  <a href={`#${id}`} onClick={(e) => { e.preventDefault(); setMenuOpen(false); setTimeout(() => scrollTo(id), 80); }}>
-                    {label}
-                    <span className="mobile-nav-arrow">→</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <div className="mobile-nav-footer">
-              <a href={`mailto:${EMAIL}`} className="mobile-nav-email">{EMAIL}</a>
-            </div>
-          </nav>
+        {/* Right Side: Full-Bleed Photo Zone */}
+        <div className="hero-right-photo-zone" ref={heroPhotoRef}>
+          <img src={omPhotoHero} alt="Om Soni" />
         </div>
-      )}
+      </div>
+    </section>
 
-      {/* ─── HERO ─── */}
-      <section id="home" className="hero">
-        <div className="hero-fluid-inner">
-          {/* Left Content Column */}
-          <div className="hero-left-content">
-            <div className="hero-badge formal-animate-1">
-              <span>DATA ANALYTICS &amp; AI ENGINEER</span>
+    {/* TICKER BELT */}
+    <Ticker />
+
+    {/* ─── ABOUT — BIG TITLE + ID CARD ─── */}
+    <section id="about" className="about-section">
+      <div className="container">
+        <div className="about-layout">
+          {/* Left: text */}
+          <div className="about-left" data-reveal="down">
+            <div className="about-big-title">
+              Data<br />
+              <span className="dim">Analytics</span>
             </div>
 
-            <div className="hero-main-name formal-animate-2">OM SONI</div>
-
-            <h1 className="hero-left-title formal-animate-3">
-              <span>DATA ANALYTICS &amp; AI / </span>
-              <span className="accent-text">DATA SCIENCE.</span>
-            </h1>
-
-            <p className="hero-left-tagline formal-animate-4">
-              Turning raw data into clear, reliable<br />
-              <strong>insights and decisions.</strong>
+            <p className="about-body-text">
+              B.Tech <strong>Artificial Intelligence &amp; Data Science</strong> at SATI Vidisha (GPA 8.10 / 10.0).
+              I work with <strong>SQL, Power BI, Excel and Python</strong> to clean, analyze, and visualize data,
+              and apply Python-based ML tooling to real-world problems.
+              SIH Winner · AIR 19 IIT Bombay · Cummins Scholar · NCC Cadet.
             </p>
 
-            <div className="hero-btn-row formal-animate-5">
-              <button ref={viewWorkBtnRef} className="hero-pill-btn hero-pill-primary" onClick={() => scrollTo('work')}>
-                VIEW MY WORK ↗
+            <div className="about-tech-pills">
+              {['SQL', 'Power BI', 'Excel', 'Python', 'Pandas', 'NumPy', 'Machine Learning'].map((t) => (
+                <span className="tech-pill" key={t}>{t}</span>
+              ))}
+            </div>
+
+            <div className="about-buttons">
+              <button
+                className="btn-outline-red"
+                onClick={() => setShowCard(!showCard)}
+              >
+                {showCard ? 'HIDE CARD' : 'SHOW CARD'}
               </button>
-              <a ref={resumeBtnRef} href="/Om_Soni_Resume.pdf" download className="hero-pill-btn hero-pill-ghost">
-                DOWNLOAD RESUME
-              </a>
+              <button
+                className="btn-solid-dark"
+                onClick={() => setAboutOpen(true)}
+              >
+                ABOUT ME
+              </button>
             </div>
           </div>
 
-          {/* Right Side: Full-Bleed Photo Zone */}
-          <div className="hero-right-photo-zone" ref={heroPhotoRef}>
-            <img src={omPhotoHero} alt="Om Soni" />
-          </div>
-        </div>
-      </section>
-
-      {/* TICKER BELT */}
-      <Ticker />
-
-      {/* ─── ABOUT — BIG TITLE + ID CARD ─── */}
-      <section id="about" className="about-section">
-        <div className="container">
-          <div className="about-layout">
-            {/* Left: text */}
-            <div className="about-left" data-reveal="down">
-              <div className="about-big-title">
-                Data<br />
-                <span className="dim">Analytics</span>
+          {/* Right: hanging ID card */}
+          <div className={`about-right ${showCard ? '' : 'card-hidden'}`} data-reveal="right">
+            <div className="id-card-container">
+              <div className="id-card-string" />
+              <div className="id-card-clip">
+                <div className="id-card-top-hole" />
               </div>
-
-              <p className="about-body-text">
-                B.Tech <strong>Artificial Intelligence &amp; Data Science</strong> at SATI Vidisha (GPA 8.10 / 10.0).
-                I work with <strong>SQL, Power BI, Excel and Python</strong> to clean, analyze, and visualize data,
-                and apply Python-based ML tooling to real-world problems.
-                SIH Winner · AIR 19 IIT Bombay · Cummins Scholar · NCC Cadet.
-              </p>
-
-              <div className="about-tech-pills">
-                {['SQL', 'Power BI', 'Excel', 'Python', 'Pandas', 'NumPy', 'Machine Learning'].map((t) => (
-                  <span className="tech-pill" key={t}>{t}</span>
-                ))}
-              </div>
-
-              <div className="about-buttons">
-                <button
-                  className="btn-outline-red"
-                  onClick={() => setShowCard(!showCard)}
-                >
-                  {showCard ? 'HIDE CARD' : 'SHOW CARD'}
-                </button>
-                <button
-                  className="btn-solid-dark"
-                  onClick={() => setAboutOpen(true)}
-                >
-                  ABOUT ME
-                </button>
-              </div>
-            </div>
-
-            {/* Right: hanging ID card */}
-            <div className={`about-right ${showCard ? '' : 'card-hidden'}`} data-reveal="right">
-              <div className="id-card-container">
-                <div className="id-card-string" />
-                <div className="id-card-clip">
+              <div className="id-card">
+                <div className="id-card-top">
                   <div className="id-card-top-hole" />
                 </div>
-                <div className="id-card">
-                  <div className="id-card-top">
-                    <div className="id-card-top-hole" />
-                  </div>
-                  <img
-                    src={omPhoto}
-                    alt="Om Soni"
-                    className="id-card-photo"
-                  />
-                  <div className="id-card-info">
-                    <div className="id-card-org">SATI Vidisha · AI & DS</div>
-                    <div className="id-card-name-row">
-                      <div>
-                        <div className="id-card-label">Name</div>
-                        <div className="id-card-name">Om Soni</div>
-                        <div className="id-card-role">Data Analytics · AI & DS</div>
-                      </div>
-                      <span style={{ fontSize: '1rem' }}>🤚</span>
+                <img
+                  src={omPhoto}
+                  alt="Om Soni"
+                  className="id-card-photo"
+                />
+                <div className="id-card-info">
+                  <div className="id-card-org">SATI Vidisha · AI & DS</div>
+                  <div className="id-card-name-row">
+                    <div>
+                      <div className="id-card-label">Name</div>
+                      <div className="id-card-name">Om Soni</div>
+                      <div className="id-card-role">Data Analytics · AI & DS</div>
                     </div>
+                    <span style={{ fontSize: '1rem' }}>🤚</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <div className="h-rule" />
+    <div className="h-rule" />
 
-      {/* ─── EDUCATION ─── */}
-      <section className="section">
-        <div className="container">
-          <div data-reveal style={{ textAlign: 'center', marginBottom: '8px' }}>
-            <div className="section-eyebrow">Education</div>
-            <h2 className="section-big-title">ACADEMIC BACKGROUND</h2>
+    {/* ─── EDUCATION ─── */}
+    <section className="section">
+      <div className="container">
+        <div data-reveal style={{ textAlign: 'center', marginBottom: '8px' }}>
+          <div className="section-eyebrow">Education</div>
+          <h2 className="section-big-title">ACADEMIC BACKGROUND</h2>
+        </div>
+
+        <div className="exp-list" data-reveal>
+          <div className="exp-item">
+            <div className="exp-left-col">
+              <div className="exp-date">Sept 2023 – June 2027</div>
+              <div className="exp-company">S.A.T.I. Vidisha, M.P.</div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--ink-3)', marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
+                GPA: 8.10 / 10.0
+              </div>
+            </div>
+            <div>
+              <div className="exp-role">B.Tech — Artificial Intelligence &amp; Data Science</div>
+              <p className="exp-desc">
+                Samrat Ashok Technological Institute, Vidisha (M.P.). Focused coursework and project work
+                spanning data analytics, machine learning, and structured dataset analysis.
+              </p>
+            </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div className="exp-list" data-reveal>
-            <div className="exp-item">
+    <div className="h-rule" />
+
+    {/* ─── SKILLS / TECHNOLOGIES ─── */}
+    <section id="skills" className="section tech-section">
+      <div className="container">
+        <div data-reveal="down" style={{ textAlign: 'center', marginBottom: '8px' }}>
+          <div className="section-eyebrow">Skills</div>
+          <h2 className="section-big-title">WHAT I WORK WITH</h2>
+        </div>
+
+        <div className="tech-count-eyebrow" data-reveal>
+          {TECH_CARDS.length} TECHNOLOGIES · DAILY STACK
+        </div>
+
+        <div className="tech-card-grid" data-reveal>
+          {TECH_CARDS.map((t, i) => (
+            <div
+              className="tech-card"
+              key={t.name}
+              style={{ transitionDelay: `${(i % 12) * 0.05}s` }}
+            >
+              <span className="tech-card-icon">{t.icon}</span>
+              <span className="tech-card-name">{t.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="skills-groups" data-reveal>
+          {SKILL_GROUPS.map((group, gi) => (
+            <div className="skills-group" key={group.label} style={{ transitionDelay: `${gi * 0.1}s` }}>
+              <div className="skills-group-label">{group.label}</div>
+              <div className="skills-group-pills">
+                {group.items.map((s) => (
+                  <span className="tech-pill" key={s}>{s}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div className="h-rule" />
+
+    {/* ─── EXPERIENCE ─── */}
+    <section className="section">
+      <div className="container">
+        <div data-reveal style={{ textAlign: 'center', marginBottom: '8px' }}>
+          <div className="section-eyebrow">Experience</div>
+          <h2 className="section-big-title">WHERE I'VE WORKED</h2>
+        </div>
+
+        <div className="exp-list">
+          {EXPERIENCE.map((item, i) => (
+            <div className="exp-item" key={i} data-reveal style={{ transitionDelay: `${i * 0.1}s` }}>
               <div className="exp-left-col">
-                <div className="exp-date">Sept 2023 – June 2027</div>
-                <div className="exp-company">S.A.T.I. Vidisha, M.P.</div>
+                <div className="exp-date">{item.date}</div>
+                <div className="exp-company">{item.company}</div>
                 <div style={{ fontSize: '0.72rem', color: 'var(--ink-3)', marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
-                  GPA: 8.10 / 10.0
+                  {item.location}
                 </div>
               </div>
               <div>
-                <div className="exp-role">B.Tech — Artificial Intelligence &amp; Data Science</div>
-                <p className="exp-desc">
-                  Samrat Ashok Technological Institute, Vidisha (M.P.). Focused coursework and project work
-                  spanning data analytics, machine learning, and structured dataset analysis.
-                </p>
+                <div className="exp-role">{item.role}</div>
+                <p className="exp-desc">{item.desc}</p>
+                <div className="exp-tags">
+                  {item.tags.map((t) => <span className="exp-tag" key={t}>{t}</span>)}
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
 
-      <div className="h-rule" />
+        <div data-reveal style={{ textAlign: 'center', margin: '56px 0 8px' }}>
+          <div className="section-eyebrow">Positions of Responsibility</div>
+        </div>
 
-      {/* ─── SKILLS / TECHNOLOGIES ─── */}
-      <section id="skills" className="section tech-section">
-        <div className="container">
-          <div data-reveal="down" style={{ textAlign: 'center', marginBottom: '8px' }}>
-            <div className="section-eyebrow">Skills</div>
-            <h2 className="section-big-title">WHAT I WORK WITH</h2>
-          </div>
+        <div className="exp-list">
+          {POSITIONS.map((item, i) => (
+            <div className="exp-item" key={i} data-reveal style={{ transitionDelay: `${i * 0.1}s` }}>
+              <div className="exp-left-col">
+                <div className="exp-date">{item.date}</div>
+                <div className="exp-company">{item.company}</div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--ink-3)', marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
+                  {item.location}
+                </div>
+              </div>
+              <div>
+                <div className="exp-role">{item.role}</div>
+                <p className="exp-desc">{item.desc}</p>
+                <div className="exp-tags">
+                  {item.tags.map((t) => <span className="exp-tag" key={t}>{t}</span>)}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
-          <div className="tech-count-eyebrow" data-reveal>
-            {TECH_CARDS.length} TECHNOLOGIES · DAILY STACK
-          </div>
+    <div className="h-rule" />
 
-          <div className="tech-card-grid" data-reveal>
-            {TECH_CARDS.map((t, i) => (
+    {/* ─── SHOWCASE ─── */}
+    <section id="work" className="section">
+      <div className="container">
+        <div data-reveal="down" style={{ textAlign: 'center', marginBottom: '8px' }}>
+          <div className="section-eyebrow">Showcase</div>
+          <h2 className="section-big-title">PORTFOLIO SHOWCASE</h2>
+        </div>
+
+        {/* Tab Group */}
+        <div className="showcase-tab-group" data-reveal>
+          {[['projects', 'Projects'], ['techstack', 'Tech Stack'], ['achievements', 'Achievements']].map(([val, label]) => (
+            <button
+              key={val}
+              className={`showcase-tab ${activeTab === val ? 'active' : ''}`}
+              onClick={() => setActiveTab(val)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab: Projects */}
+        {activeTab === 'projects' && (
+          <div className="showcase-cards-grid" data-stagger>
+            {PROJECTS.map((p, i) => (
               <div
-                className="tech-card"
-                key={t.name}
-                style={{ transitionDelay: `${(i % 12) * 0.05}s` }}
+                className="showcase-card"
+                key={p.id}
+                data-cursor="VIEW"
+                style={{ transitionDelay: `${i * 0.08}s` }}
+                onClick={() => setSelectedProj(p)}
               >
-                <span className="tech-card-icon">{t.icon}</span>
-                <span className="tech-card-name">{t.name}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="skills-groups" data-reveal>
-            {SKILL_GROUPS.map((group, gi) => (
-              <div className="skills-group" key={group.label} style={{ transitionDelay: `${gi * 0.1}s` }}>
-                <div className="skills-group-label">{group.label}</div>
-                <div className="skills-group-pills">
-                  {group.items.map((s) => (
-                    <span className="tech-pill" key={s}>{s}</span>
-                  ))}
+                <div className="sc-img-wrap">
+                  {p.imgComponent ? p.imgComponent : <img src={p.img} alt={p.title} />}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="h-rule" />
-
-      {/* ─── EXPERIENCE ─── */}
-      <section className="section">
-        <div className="container">
-          <div data-reveal style={{ textAlign: 'center', marginBottom: '8px' }}>
-            <div className="section-eyebrow">Experience</div>
-            <h2 className="section-big-title">WHERE I'VE WORKED</h2>
-          </div>
-
-          <div className="exp-list">
-            {EXPERIENCE.map((item, i) => (
-              <div className="exp-item" key={i} data-reveal style={{ transitionDelay: `${i * 0.1}s` }}>
-                <div className="exp-left-col">
-                  <div className="exp-date">{item.date}</div>
-                  <div className="exp-company">{item.company}</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--ink-3)', marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
-                    {item.location}
-                  </div>
-                </div>
-                <div>
-                  <div className="exp-role">{item.role}</div>
-                  <p className="exp-desc">{item.desc}</p>
-                  <div className="exp-tags">
-                    {item.tags.map((t) => <span className="exp-tag" key={t}>{t}</span>)}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div data-reveal style={{ textAlign: 'center', margin: '56px 0 8px' }}>
-            <div className="section-eyebrow">Positions of Responsibility</div>
-          </div>
-
-          <div className="exp-list">
-            {POSITIONS.map((item, i) => (
-              <div className="exp-item" key={i} data-reveal style={{ transitionDelay: `${i * 0.1}s` }}>
-                <div className="exp-left-col">
-                  <div className="exp-date">{item.date}</div>
-                  <div className="exp-company">{item.company}</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--ink-3)', marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
-                    {item.location}
-                  </div>
-                </div>
-                <div>
-                  <div className="exp-role">{item.role}</div>
-                  <p className="exp-desc">{item.desc}</p>
-                  <div className="exp-tags">
-                    {item.tags.map((t) => <span className="exp-tag" key={t}>{t}</span>)}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="h-rule" />
-
-      {/* ─── SHOWCASE ─── */}
-      <section id="work" className="section">
-        <div className="container">
-          <div data-reveal="down" style={{ textAlign: 'center', marginBottom: '8px' }}>
-            <div className="section-eyebrow">Showcase</div>
-            <h2 className="section-big-title">PORTFOLIO SHOWCASE</h2>
-          </div>
-
-          {/* Tab Group */}
-          <div className="showcase-tab-group" data-reveal>
-            {[['projects', 'Projects'], ['techstack', 'Tech Stack'], ['achievements', 'Achievements']].map(([val, label]) => (
-              <button
-                key={val}
-                className={`showcase-tab ${activeTab === val ? 'active' : ''}`}
-                onClick={() => setActiveTab(val)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-
-          {/* Tab: Projects */}
-          {activeTab === 'projects' && (
-            <div className="showcase-cards-grid" data-stagger>
-              {PROJECTS.map((p, i) => (
-                <div
-                  className="showcase-card"
-                  key={p.id}
-                  data-cursor="VIEW"
-                  style={{ transitionDelay: `${i * 0.08}s` }}
-                  onClick={() => setSelectedProj(p)}
-                >
-                  <div className="sc-img-wrap">
-                    {p.imgComponent ? p.imgComponent : <img src={p.img} alt={p.title} />}
-                  </div>
-                  <div className="sc-bottom">
-                    <div>
-                      <div className="sc-stack">{p.stack.slice(0, 3).join(' + ')}</div>
-                      <div className="sc-card-title">
-                        {p.title}
-                      </div>
+                <div className="sc-bottom">
+                  <div>
+                    <div className="sc-stack">{p.stack.slice(0, 3).join(' + ')}</div>
+                    <div className="sc-card-title">
+                      {p.title}
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-
-          {/* Tab: Tech Stack */}
-          {activeTab === 'techstack' && (
-            <div className="tech-stack-grid" data-stagger>
-              {[
-                { icon: '🗄️', name: 'SQL', type: 'Data Analytics' },
-                { icon: '📈', name: 'Power BI', type: 'Data Visualization' },
-                { icon: '📗', name: 'Excel', type: 'Data Analytics' },
-                { icon: '🐍', name: 'Python', type: 'Programming' },
-                { icon: '📊', name: 'Pandas · NumPy', type: 'Data Science' },
-                { icon: '🤖', name: 'Machine Learning', type: 'AI / ML' },
-                { icon: '👁️', name: 'OpenCV', type: 'Computer Vision' },
-                { icon: '⚡', name: 'YOLOv8', type: 'Object Detection' },
-                { icon: '🔥', name: 'PyTorch', type: 'Deep Learning' },
-                { icon: '🔷', name: 'Figma', type: 'Design' },
-                { icon: '🎨', name: 'Canva', type: 'Design' },
-                { icon: '🐙', name: 'Git · GitHub', type: 'Version Control' },
-              ].map((t) => (
-                <div className="tech-stack-cell" key={t.name}>
-                  <span className="tech-cell-icon">{t.icon}</span>
-                  <div className="tech-cell-name">{t.name}</div>
-                  <div className="tech-cell-type">{t.type}</div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Tab: Achievements */}
-          {activeTab === 'achievements' && (
-            <div className="ach-strip" data-stagger>
-              {ACHIEVEMENTS.map((a) => (
-                <div className="ach-cell" key={a.num}>
-                  <div className="ach-num">{a.num}</div>
-                  <span className="ach-icon">{a.icon}</span>
-                  <div className="ach-org">{a.org}</div>
-                  <div className="ach-title">{a.title}</div>
-                  <p className="ach-desc">{a.desc}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      <div className="h-rule" />
-
-      {/* ─── CONTACT ─── */}
-      <section id="contact" className="contact-section">
-        <div className="container">
-          <div data-reveal style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <div className="section-eyebrow">Contact</div>
-            <h2 className="section-big-title">LET'S CONNECT</h2>
-          </div>
-
-          <div className="contact-grid">
-            {/* Left */}
-            <div data-reveal="left">
-              <p className="contact-big">
-                Let's build<br />something<br /><span className="red">great.</span>
-              </p>
-
-              <div className="contact-detail-rows">
-                <a href={`mailto:${EMAIL}`} className="c-row">
-                  <span className="c-label">Email</span>
-                  <span className="c-val">{EMAIL}</span>
-                  <span className="c-arrow">→</span>
-                </a>
-                <a href={`tel:${PHONE}`} className="c-row">
-                  <span className="c-label">Phone</span>
-                  <span className="c-val">{PHONE}</span>
-                  <span className="c-arrow">→</span>
-                </a>
-                <a href={LINKEDIN} target="_blank" rel="noreferrer" className="c-row">
-                  <span className="c-label">LinkedIn</span>
-                  <span className="c-val">om-soni-407789317</span>
-                  <span className="c-arrow">→</span>
-                </a>
-                <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="c-row">
-                  <span className="c-label">Instagram</span>
-                  <span className="c-val">@__om_soni__08</span>
-                  <span className="c-arrow">→</span>
-                </a>
               </div>
-            </div>
-
-            {/* Right: Form */}
-            <div data-reveal="right">
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <div className="cf-field">
-                  <label>Your Name</label>
-                  <input type="text" placeholder="Alex Johnson" value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-                </div>
-                <div className="cf-field">
-                  <label>Email</label>
-                  <input type="email" placeholder="alex@company.com" value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })} required />
-                </div>
-                <div className="cf-field">
-                  <label>Topic</label>
-                  <select value={form.topic} onChange={(e) => setForm({ ...form, topic: e.target.value })}>
-                    <option>Data Analytics</option>
-                    <option>AI / Data Science</option>
-                    <option>Machine Learning</option>
-                    <option>Internship / Job Offer</option>
-                    <option>Hackathon Collab</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div className="cf-field" style={{ borderBottom: 'none' }}>
-                  <label>Message</label>
-                  <textarea placeholder="Tell me about your project or opportunity..."
-                    value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required />
-                </div>
-                <button type="submit" className="cf-submit" disabled={sending}>
-                  {sending ? 'Sending…' : 'Send Message'}
-                  <span className="cf-submit-arrow">{sending ? '⏳' : '→'}</span>
-                </button>
-              </form>
-            </div>
+            ))}
           </div>
-        </div>
-      </section>
+        )}
 
-      {/* ─── FOOTER ─── */}
-      <footer className="footer">
-        <div className="container footer-inner">
-          <span className="footer-copy">© 2026 Om Soni — Data Analytics · AI &amp; Data Science</span>
-          <button className="footer-top-btn" onClick={() => scrollTo('home')}>↑ BACK TO TOP</button>
-        </div>
-      </footer>
-
-      {/* ─── ABOUT DETAIL PANEL ─── */}
-      {aboutOpen && (
-        <div className="about-panel-overlay" onClick={() => setAboutOpen(false)}>
-          <div className="about-panel" onClick={(e) => e.stopPropagation()}>
-            <button className="panel-back-btn" onClick={() => setAboutOpen(false)}>
-              ← Back
-            </button>
-
-            <div className="panel-title-wrap">
-              <h2 className="panel-title">
-                About Myself<span className="panel-cursor" />
-              </h2>
-            </div>
-
-            <div className="panel-body">
-              <p className="panel-para">
-                I'm currently a <strong>B.Tech AI & Data Science student</strong> at Samrat Ashok Technological Institute, Vidisha (M.P.), maintaining a <strong>GPA of 8.10/10.0</strong>. My focus is on <strong>data analytics</strong> — using SQL, Power BI, Excel and Python to turn raw, messy data into clear, decision-ready insights.
-              </p>
-              <p className="panel-para">
-                That interest in structured, evidence-based problem-solving extends into <strong>AI and machine learning</strong>, where I've worked hands-on with Python, Pandas, NumPy, and computer-vision tooling to build and support real-world ML systems.
-              </p>
-              <p className="panel-para">
-                I've competed at national level — won at <strong>Smart India Hackathon 2025</strong>, achieved <strong>All-India Rank 19 at IIT Bombay's E-Summit</strong>, earned a <strong>Cummins Scholarship</strong> (top 32 of 5,000+ students), and served twice at the <strong>NCC All India Thal Sainik Camp</strong>.
-              </p>
-              <p className="panel-para">
-                Outside of data work, I lead the Graphic Design team for E-Cell S.A.T.I., creating visual assets for national entrepreneurship competitions.
-              </p>
-
-              <div className="panel-info-grid">
-                <div className="panel-info-cell">
-                  <div className="panel-info-key">Degree</div>
-                  <div className="panel-info-val">B.Tech AI & Data Science</div>
-                </div>
-                <div className="panel-info-cell">
-                  <div className="panel-info-key">College</div>
-                  <div className="panel-info-val">SATI Vidisha, M.P.</div>
-                </div>
-                <div className="panel-info-cell">
-                  <div className="panel-info-key">GPA</div>
-                  <div className="panel-info-val">8.10 / 10.0</div>
-                </div>
-                <div className="panel-info-cell">
-                  <div className="panel-info-key">Batch</div>
-                  <div className="panel-info-val">2023 – 2027</div>
-                </div>
-                <div className="panel-info-cell">
-                  <div className="panel-info-key">Location</div>
-                  <div className="panel-info-val">Narmadapuram / Vidisha, M.P.</div>
-                </div>
-                <div className="panel-info-cell">
-                  <div className="panel-info-key">Email</div>
-                  <div className="panel-info-val">
-                    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-                  </div>
-                </div>
-                <div className="panel-info-cell">
-                  <div className="panel-info-key">LinkedIn</div>
-                  <div className="panel-info-val">
-                    <a href={LINKEDIN} target="_blank" rel="noreferrer">om-soni-407789317</a>
-                  </div>
-                </div>
-                <div className="panel-info-cell">
-                  <div className="panel-info-key">Instagram</div>
-                  <div className="panel-info-val">
-                    <a href={INSTAGRAM} target="_blank" rel="noreferrer">@__om_soni__08</a>
-                  </div>
-                </div>
+        {/* Tab: Tech Stack */}
+        {activeTab === 'techstack' && (
+          <div className="tech-stack-grid" data-stagger>
+            {[
+              { icon: '🗄️', name: 'SQL', type: 'Data Analytics' },
+              { icon: '📈', name: 'Power BI', type: 'Data Visualization' },
+              { icon: '📗', name: 'Excel', type: 'Data Analytics' },
+              { icon: '🐍', name: 'Python', type: 'Programming' },
+              { icon: '📊', name: 'Pandas · NumPy', type: 'Data Science' },
+              { icon: '🤖', name: 'Machine Learning', type: 'AI / ML' },
+              { icon: '👁️', name: 'OpenCV', type: 'Computer Vision' },
+              { icon: '⚡', name: 'YOLOv8', type: 'Object Detection' },
+              { icon: '🔥', name: 'PyTorch', type: 'Deep Learning' },
+              { icon: '🔷', name: 'Figma', type: 'Design' },
+              { icon: '🎨', name: 'Canva', type: 'Design' },
+              { icon: '🐙', name: 'Git · GitHub', type: 'Version Control' },
+            ].map((t) => (
+              <div className="tech-stack-cell" key={t.name}>
+                <span className="tech-cell-icon">{t.icon}</span>
+                <div className="tech-cell-name">{t.name}</div>
+                <div className="tech-cell-type">{t.type}</div>
               </div>
-            </div>
+            ))}
+          </div>
+        )}
 
-            <div className="panel-footer">
-              <a href={RESUME_URL} download className="download-btn">
-                <span>⬇</span> Download Resume
+        {/* Tab: Achievements */}
+        {activeTab === 'achievements' && (
+          <div className="ach-strip" data-stagger>
+            {ACHIEVEMENTS.map((a) => (
+              <div className="ach-cell" key={a.num}>
+                <div className="ach-num">{a.num}</div>
+                <span className="ach-icon">{a.icon}</span>
+                <div className="ach-org">{a.org}</div>
+                <div className="ach-title">{a.title}</div>
+                <p className="ach-desc">{a.desc}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <div className="h-rule" />
+
+    {/* ─── CONTACT ─── */}
+    <section id="contact" className="contact-section">
+      <div className="container">
+        <div data-reveal style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div className="section-eyebrow">Contact</div>
+          <h2 className="section-big-title">LET'S CONNECT</h2>
+        </div>
+
+        <div className="contact-grid">
+          {/* Left */}
+          <div data-reveal="left">
+            <p className="contact-big">
+              Let's build<br />something<br /><span className="red">great.</span>
+            </p>
+
+            <div className="contact-detail-rows">
+              <a href={`mailto:${EMAIL}`} className="c-row">
+                <span className="c-label">Email</span>
+                <span className="c-val">{EMAIL}</span>
+                <span className="c-arrow">→</span>
+              </a>
+              <a href={`tel:${PHONE}`} className="c-row">
+                <span className="c-label">Phone</span>
+                <span className="c-val">{PHONE}</span>
+                <span className="c-arrow">→</span>
+              </a>
+              <a href={LINKEDIN} target="_blank" rel="noreferrer" className="c-row">
+                <span className="c-label">LinkedIn</span>
+                <span className="c-val">om-soni-407789317</span>
+                <span className="c-arrow">→</span>
+              </a>
+              <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="c-row">
+                <span className="c-label">Instagram</span>
+                <span className="c-val">@__om_soni__08</span>
+                <span className="c-arrow">→</span>
               </a>
             </div>
           </div>
+
+          {/* Right: Form */}
+          <div data-reveal="right">
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <div className="cf-field">
+                <label>Your Name</label>
+                <input type="text" placeholder="Alex Johnson" value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+              </div>
+              <div className="cf-field">
+                <label>Email</label>
+                <input type="email" placeholder="alex@company.com" value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })} required />
+              </div>
+              <div className="cf-field">
+                <label>Topic</label>
+                <select value={form.topic} onChange={(e) => setForm({ ...form, topic: e.target.value })}>
+                  <option>Data Analytics</option>
+                  <option>AI / Data Science</option>
+                  <option>Machine Learning</option>
+                  <option>Internship / Job Offer</option>
+                  <option>Hackathon Collab</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div className="cf-field" style={{ borderBottom: 'none' }}>
+                <label>Message</label>
+                <textarea placeholder="Tell me about your project or opportunity..."
+                  value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required />
+              </div>
+              <button type="submit" className="cf-submit" disabled={sending}>
+                {sending ? 'Sending…' : 'Send Message'}
+                <span className="cf-submit-arrow">{sending ? '⏳' : '→'}</span>
+              </button>
+            </form>
+          </div>
         </div>
-      )}
+      </div>
+    </section>
 
-      {/* ─── PROJECT MODAL ─── */}
-      {selectedProj && (
-        <div className="modal-overlay" onClick={() => setSelectedProj(null)}>
-          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedProj(null)}>✕</button>
+    {/* ─── FOOTER ─── */}
+    <footer className="footer">
+      <div className="container footer-inner">
+        <span className="footer-copy">© 2026 Om Soni — Data Analytics · AI &amp; Data Science</span>
+        <button className="footer-top-btn" onClick={() => scrollTo('home')}>↑ BACK TO TOP</button>
+      </div>
+    </footer>
 
-            {selectedProj.imgComponent ? (
-              <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
-                {selectedProj.imgComponent}
+    {/* ─── ABOUT DETAIL PANEL ─── */}
+    {aboutOpen && (
+      <div className="about-panel-overlay" onClick={() => setAboutOpen(false)}>
+        <div className="about-panel" onClick={(e) => e.stopPropagation()}>
+          <button className="panel-back-btn" onClick={() => setAboutOpen(false)}>
+            ← Back
+          </button>
+
+          <div className="panel-title-wrap">
+            <h2 className="panel-title">
+              About Myself<span className="panel-cursor" />
+            </h2>
+          </div>
+
+          <div className="panel-body">
+            <p className="panel-para">
+              I'm currently a <strong>B.Tech AI & Data Science student</strong> at Samrat Ashok Technological Institute, Vidisha (M.P.), maintaining a <strong>GPA of 8.10/10.0</strong>. My focus is on <strong>data analytics</strong> — using SQL, Power BI, Excel and Python to turn raw, messy data into clear, decision-ready insights.
+            </p>
+            <p className="panel-para">
+              That interest in structured, evidence-based problem-solving extends into <strong>AI and machine learning</strong>, where I've worked hands-on with Python, Pandas, NumPy, and computer-vision tooling to build and support real-world ML systems.
+            </p>
+            <p className="panel-para">
+              I've competed at national level — won at <strong>Smart India Hackathon 2025</strong>, achieved <strong>All-India Rank 19 at IIT Bombay's E-Summit</strong>, earned a <strong>Cummins Scholarship</strong> (top 32 of 5,000+ students), and served twice at the <strong>NCC All India Thal Sainik Camp</strong>.
+            </p>
+            <p className="panel-para">
+              Outside of data work, I lead the Graphic Design team for E-Cell S.A.T.I., creating visual assets for national entrepreneurship competitions.
+            </p>
+
+            <div className="panel-info-grid">
+              <div className="panel-info-cell">
+                <div className="panel-info-key">Degree</div>
+                <div className="panel-info-val">B.Tech AI & Data Science</div>
               </div>
-            ) : (
-              <img className="modal-img" src={selectedProj.img} alt={selectedProj.title} />
-            )}
-
-            <div className="modal-body">
-              <div className="modal-cat">{selectedProj.cat}</div>
-              <h2 className="modal-title">{selectedProj.title}</h2>
-              <p className="modal-desc">{selectedProj.detail}</p>
-              <div className="modal-stack-wrap">
-                {selectedProj.stack.map((t) => <span className="m-tag" key={t}>{t}</span>)}
+              <div className="panel-info-cell">
+                <div className="panel-info-key">College</div>
+                <div className="panel-info-val">SATI Vidisha, M.P.</div>
               </div>
-              <div className="modal-actions">
-                <button className="m-btn-ghost" onClick={() => setSelectedProj(null)}>
-                  Close
-                </button>
+              <div className="panel-info-cell">
+                <div className="panel-info-key">GPA</div>
+                <div className="panel-info-val">8.10 / 10.0</div>
+              </div>
+              <div className="panel-info-cell">
+                <div className="panel-info-key">Batch</div>
+                <div className="panel-info-val">2023 – 2027</div>
+              </div>
+              <div className="panel-info-cell">
+                <div className="panel-info-key">Location</div>
+                <div className="panel-info-val">Narmadapuram / Vidisha, M.P.</div>
+              </div>
+              <div className="panel-info-cell">
+                <div className="panel-info-key">Email</div>
+                <div className="panel-info-val">
+                  <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+                </div>
+              </div>
+              <div className="panel-info-cell">
+                <div className="panel-info-key">LinkedIn</div>
+                <div className="panel-info-val">
+                  <a href={LINKEDIN} target="_blank" rel="noreferrer">om-soni-407789317</a>
+                </div>
+              </div>
+              <div className="panel-info-cell">
+                <div className="panel-info-key">Instagram</div>
+                <div className="panel-info-val">
+                  <a href={INSTAGRAM} target="_blank" rel="noreferrer">@__om_soni__08</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
 
-      {/* ─── TOAST ─── */}
-      {toast.show && (
-        <div className={`toast ${toast.success ? 'toast-success' : 'toast-error'}`}>
-          <span className={`toast-dot ${toast.success ? '' : 'toast-dot-error'}`} />
-          {toast.msg}
+          <div className="panel-footer">
+            <a href={RESUME_URL} download className="download-btn">
+              <span>⬇</span> Download Resume
+            </a>
+          </div>
         </div>
-      )}
-    </>
-  );
+      </div>
+    )}
+
+    {/* ─── PROJECT MODAL ─── */}
+    {selectedProj && (
+      <div className="modal-overlay" onClick={() => setSelectedProj(null)}>
+        <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+          <button className="modal-close" onClick={() => setSelectedProj(null)}>✕</button>
+
+          {selectedProj.imgComponent ? (
+            <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
+              {selectedProj.imgComponent}
+            </div>
+          ) : (
+            <img className="modal-img" src={selectedProj.img} alt={selectedProj.title} />
+          )}
+
+          <div className="modal-body">
+            <div className="modal-cat">{selectedProj.cat}</div>
+            <h2 className="modal-title">{selectedProj.title}</h2>
+            <p className="modal-desc">{selectedProj.detail}</p>
+            <div className="modal-stack-wrap">
+              {selectedProj.stack.map((t) => <span className="m-tag" key={t}>{t}</span>)}
+            </div>
+            <div className="modal-actions">
+              <button className="m-btn-ghost" onClick={() => setSelectedProj(null)}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* ─── TOAST ─── */}
+    {toast.show && (
+      <div className={`toast ${toast.success ? 'toast-success' : 'toast-error'}`}>
+        <span className={`toast-dot ${toast.success ? '' : 'toast-dot-error'}`} />
+        {toast.msg}
+      </div>
+    )}
+  </>
+);
 }
