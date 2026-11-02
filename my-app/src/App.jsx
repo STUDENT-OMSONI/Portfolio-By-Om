@@ -5,6 +5,7 @@ import omPhotoHero from './assets/om_photo_hero.png';
 import project1Img from './assets/project1.png';
 import project2Img from './assets/project2.png';
 import project3Img from './assets/project3.png';
+import omifyImg from './assets/omify.png';
 import './App.css';
 
 /* ─── CUSTOM POTHOLE UI (REPLACING IMAGE) ─── */
@@ -182,11 +183,11 @@ function Logo({ size = 40 }) {
     <svg width={w} height={h} viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="animated-logo-svg">
       <defs>
         <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#C59E59" />
-          <stop offset="25%" stop-color="#F9E596" />
-          <stop offset="50%" stop-color="#C59E59" />
-          <stop offset="75%" stop-color="#F9E596" />
-          <stop offset="100%" stop-color="#C59E59" />
+          <stop offset="0%" stopColor="#C59E59" />
+          <stop offset="25%" stopColor="#F9E596" />
+          <stop offset="50%" stopColor="#C59E59" />
+          <stop offset="75%" stopColor="#F9E596" />
+          <stop offset="100%" stopColor="#C59E59" />
         </linearGradient>
         <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="2" result="blur" />
@@ -236,19 +237,46 @@ const PROJECTS = [
   {
     id: 1,
     title: 'Health Lock - Blockchain Medical Records',
-    cat: 'SUNHACKS-2025',
+    subtitle: 'Immutable Decentralized Ledger for Sensitive Patient Records',
+    cat: 'SUNHACKS-2025 · DATA SECURITY',
     stack: ['Blockchain', 'Encryption', 'React', 'Data Security'],
     img: project2Img,
+    icon: '🔐',
+    themeColor: '#60a5fa',
+    themeBg: 'rgba(59, 130, 246, 0.15)',
+    glowColor: 'rgba(59, 130, 246, 0.25)',
+    mockupUrl: 'https://healthlock.chain/records',
     detail: 'A secure health-record management system built for the medical department, using blockchain technology to store and protect patient data through immutable, decentralized ledger entries. Implements end-to-end encryption so only authorized personnel can access sensitive records, eliminating tampering risk and supporting medical data privacy standards.',
   },
   {
     id: 2,
     title: 'AI Pothole Detection',
-    cat: 'Smart India Hackathon 2025',
+    subtitle: 'Real-Time Computer Vision & Hazard Analytics Platform',
+    cat: 'Smart India Hackathon 2025 · Winner',
     stack: ['YOLOv8', 'Python', 'OpenCV', 'PyTorch', 'Flask'],
     img: project1Img, // Fallback image just in case
     imgComponent: <PotholeUI />,
+    icon: '🛣️',
+    themeColor: '#22d3ee',
+    themeBg: 'rgba(6, 182, 212, 0.15)',
+    glowColor: 'rgba(6, 182, 212, 0.25)',
+    mockupUrl: 'https://pothole-ai.gov.in/live',
     detail: 'A real-time web platform built with YOLOv8, Python, OpenCV, and PyTorch to detect potholes from images, video, and webcam feeds, using centroid-based tracking to eliminate duplicate detections. Integrated automated reporting with location and severity details, Google OAuth, an analytics dashboard, and email-based complaint routing to municipal authorities.',
+  },
+  {
+    id: 3,
+    title: 'OMIFY – Music Streaming Web App with ML Recommendations',
+    subtitle: 'Personal Spotify-Inspired Sound System with AI Clustering',
+    cat: 'Personal Project · 2025',
+    stack: ['React', 'Machine Learning', 'MusicBrainz API', 'Audio Streaming', 'Clustering'],
+    img: omifyImg,
+    link: 'https://omify-pearl.vercel.app/',
+    icon: '🎵',
+    themeColor: '#4ade80',
+    themeBg: 'rgba(34, 197, 94, 0.15)',
+    glowColor: 'rgba(34, 197, 94, 0.25)',
+    mockupUrl: 'https://omify-pearl.vercel.app',
+    detail: '• Built a personal Spotify-inspired music streaming web app hosting a self-curated library of my 1,098 favorite songs, featuring full playback, playlist creation, and search functionality.\n\n• Added ML recommendations: song clustering, daily mixes from the last 10 days of listening, and new-release suggestions via the MusicBrainz API.',
   }
 ];
 
@@ -505,6 +533,59 @@ export default function App() {
   const [showCard, setShowCard] = useState(true);
   const [activeTab, setActiveTab] = useState('projects');
   const [selectedProj, setSelectedProj] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const touchStartRef = useRef(0);
+  const touchEndRef = useRef(0);
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % PROJECTS.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
+  }, []);
+
+  const goToSlide = (idx) => {
+    setCurrentSlide(idx);
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.targetTouches[0].clientX;
+  };
+  const handleTouchMove = (e) => {
+    touchEndRef.current = e.targetTouches[0].clientX;
+  };
+  const handleTouchEnd = () => {
+    if (!touchStartRef.current || !touchEndRef.current) return;
+    const diff = touchStartRef.current - touchEndRef.current;
+    if (diff > 45) nextSlide();
+    if (diff < -45) prevSlide();
+    touchStartRef.current = 0;
+    touchEndRef.current = 0;
+  };
+
+  /* Keyboard Slide Navigation */
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (activeTab !== 'projects') return;
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [activeTab, nextSlide, prevSlide]);
+
+  /* Autoplay Slide Timer */
+  useEffect(() => {
+    if (activeTab !== 'projects' || !isAutoPlay || isHovered) return;
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [activeTab, isAutoPlay, isHovered, nextSlide]);
+
   useReveal(activeTab);
   const [toast, setToast] = useState({ show: false, success: true, msg: '' });
   const [sending, setSending] = useState(false);
@@ -958,28 +1039,204 @@ return (
 
         {/* Tab: Projects */}
         {activeTab === 'projects' && (
-          <div className="showcase-cards-grid" data-stagger>
-            {PROJECTS.map((p, i) => (
-              <div
-                className="showcase-card"
-                key={p.id}
-                data-cursor="VIEW"
-                style={{ transitionDelay: `${i * 0.08}s` }}
-                onClick={() => setSelectedProj(p)}
+          <div className="projects-showcase-wrap">
+            {/* Control Bar: Jump Pills */}
+            <div className="stacked-controls-bar" data-reveal>
+              <div className="stacked-nav-pills">
+                {PROJECTS.map((p, idx) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    className={`stacked-nav-pill ${currentSlide === idx ? 'active' : ''}`}
+                    onClick={() => goToSlide(idx)}
+                  >
+                    <span className="pill-num">0{idx + 1}</span>
+                    <span className="pill-name">{p.title.split('–')[0].split('-')[0].trim()}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mode: Animated Slide Carousel */}
+            <div
+              className="project-slider-wrapper"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              {/* Floating Left/Right Arrows */}
+              <button
+                type="button"
+                className="slider-floating-arrow prev"
+                onClick={prevSlide}
+                aria-label="Previous Slide"
+                title="Previous Project (Left Arrow)"
               >
-                <div className="sc-img-wrap">
-                  {p.imgComponent ? p.imgComponent : <img src={p.img} alt={p.title} />}
-                </div>
-                <div className="sc-bottom">
-                  <div>
-                    <div className="sc-stack">{p.stack.slice(0, 3).join(' + ')}</div>
-                    <div className="sc-card-title">
-                      {p.title}
-                    </div>
-                  </div>
+                ❮
+              </button>
+              <button
+                type="button"
+                className="slider-floating-arrow next"
+                onClick={nextSlide}
+                aria-label="Next Slide"
+                title="Next Project (Right Arrow)"
+              >
+                ❯
+              </button>
+
+              {/* Main Viewport */}
+              <div
+                className="slider-main-viewport"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                <div
+                  className="slider-track"
+                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                >
+                  {PROJECTS.map((p, i) => {
+                    const isEven = i % 2 === 0;
+                    return (
+                      <div className="slider-slide" key={p.id}>
+                        <div
+                          className={`stacked-card ${isEven ? 'layout-normal' : 'layout-reverse'}`}
+                          onClick={() => setSelectedProj(p)}
+                        >
+                          {/* Header strip */}
+                          <div className="card-stack-header">
+                            <div className="card-stack-header-left">
+                              <span className="card-stack-index">0{i + 1}</span>
+                              <span className="card-stack-mini-title">{p.title}</span>
+                            </div>
+                            <div className="card-stack-indicator">
+                              <span>{p.cat}</span>
+                              <span>•</span>
+                              <span style={{ color: p.themeColor }}>CLICK FOR FULL VIEW ↗</span>
+                            </div>
+                          </div>
+
+                          <div className="stacked-card-grid">
+                            <div className="stacked-card-content">
+                              <div className="sc-meta-row">
+                                <div className="sc-icon-badge" style={{ background: p.themeBg, color: p.themeColor }}>
+                                  {p.icon}
+                                </div>
+                                <div className="sc-cat-pill">{p.cat}</div>
+                                <div className="sc-index-counter">0{i + 1} / 0{PROJECTS.length}</div>
+                              </div>
+
+                              <h3 className="sc-title">{p.title}</h3>
+                              {p.subtitle && <p className="sc-subtitle">{p.subtitle}</p>}
+
+                              <div className="sc-desc-box">
+                                {p.detail.split('\n\n').map((paragraph, pIdx) => (
+                                  <p key={pIdx} className="sc-desc-line">{paragraph}</p>
+                                ))}
+                              </div>
+
+                              <div className="sc-tags-row">
+                                {p.stack.map((t) => (
+                                  <span key={t} className="sc-tag-pill">{t}</span>
+                                ))}
+                              </div>
+
+                              <div className="sc-actions-row">
+                                {p.link && (
+                                  <a
+                                    href={p.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="sc-btn-primary"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    <span>Live Demo</span>
+                                    <span className="sc-btn-arrow">↗</span>
+                                  </a>
+                                )}
+                                <button
+                                  type="button"
+                                  className="sc-btn-secondary"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedProj(p);
+                                  }}
+                                >
+                                  View Details
+                                </button>
+                              </div>
+                            </div>
+
+                            <div className="stacked-card-visual">
+                              <div className="mockup-window" style={{ '--accent-glow': p.glowColor }}>
+                                <div className="mockup-titlebar">
+                                  <div className="mockup-dots">
+                                    <span className="mockup-dot red" />
+                                    <span className="mockup-dot yellow" />
+                                    <span className="mockup-dot green" />
+                                  </div>
+                                  <div className="mockup-url">
+                                    {p.mockupUrl || 'https://omify-pearl.vercel.app'}
+                                  </div>
+                                  <div className="mockup-actions">
+                                    <span className="mockup-status-dot" />
+                                    <span>ONLINE</span>
+                                  </div>
+                                </div>
+                                <div className="mockup-screen">
+                                  {p.imgComponent ? (
+                                    p.imgComponent
+                                  ) : (
+                                    <img src={p.img} alt={p.title} className="mockup-img" />
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-            ))}
+
+              {/* Progress Bar */}
+              <div className="slider-progress-track">
+                <div
+                  className="slider-progress-fill"
+                  style={{ width: `${((currentSlide + 1) / PROJECTS.length) * 100}%` }}
+                />
+              </div>
+
+              {/* Bottom Bar: Dots + Counter + Auto-play toggle */}
+              <div className="slider-bottom-bar">
+                <div className="slider-dots-group">
+                  {PROJECTS.map((p, idx) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      className={`slider-dot-btn ${currentSlide === idx ? 'active' : ''}`}
+                      onClick={() => goToSlide(idx)}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    >
+                      <span className="slider-dot-pill" />
+                    </button>
+                  ))}
+                </div>
+
+                <div className="slider-counter-info">
+                  PROJECT 0{currentSlide + 1} OF 0{PROJECTS.length}
+                </div>
+
+                <button
+                  type="button"
+                  className="slider-autoplay-btn"
+                  onClick={() => setIsAutoPlay(!isAutoPlay)}
+                  title="Toggle Auto-Slide Animation"
+                >
+                  <span>{isAutoPlay ? '⏸ Pause Auto' : '▶ Auto Slide'}</span>
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
@@ -1210,11 +1467,22 @@ return (
           <div className="modal-body">
             <div className="modal-cat">{selectedProj.cat}</div>
             <h2 className="modal-title">{selectedProj.title}</h2>
-            <p className="modal-desc">{selectedProj.detail}</p>
+            <p className="modal-desc" style={{ whiteSpace: 'pre-line' }}>{selectedProj.detail}</p>
             <div className="modal-stack-wrap">
               {selectedProj.stack.map((t) => <span className="m-tag" key={t}>{t}</span>)}
             </div>
             <div className="modal-actions">
+              {selectedProj.link && (
+                <a
+                  href={selectedProj.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="m-btn-primary"
+                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                >
+                  Live Demo ↗
+                </a>
+              )}
               <button className="m-btn-ghost" onClick={() => setSelectedProj(null)}>
                 Close
               </button>
