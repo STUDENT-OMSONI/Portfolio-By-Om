@@ -1,5 +1,65 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import emailjs from '@emailjs/browser';
+import {
+  SiPython,
+  SiMysql,
+  SiPandas,
+  SiNumpy,
+  SiPytorch,
+  SiOpencv,
+  SiReact,
+  SiStreamlit,
+  SiFlask,
+  SiFigma,
+  SiGithub,
+  SiYolo,
+} from 'react-icons/si';
+import { TbSql } from 'react-icons/tb';
+import { RiFileExcel2Line } from 'react-icons/ri';
+import {
+  FaBrain,
+  FaTrophy,
+  FaRocket,
+  FaGraduationCap,
+  FaAward,
+} from 'react-icons/fa6';
+
+/* Custom SVG icons for Power BI and Canva (exact official brand marks) */
+function SiPowerbi({ size = 40, color = '#F2C811', style, ...props }) {
+  return (
+    <svg
+      stroke="currentColor"
+      fill="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 24 24"
+      height={size}
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ color, ...style }}
+      {...props}
+    >
+      <path d="M10 12a1 1 0 0 1 1 1v11H4a1 1 0 0 1-1-1V13a1 1 0 0 1 1-1zm-2-.5V7a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v17h-4.5V13a1.5 1.5 0 0 0-1.5-1.5zm5-6V1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1h-3.5V7A1.5 1.5 0 0 0 15 5.5z" />
+    </svg>
+  );
+}
+
+function SiCanva({ size = 40, color = '#00C4CC', style, ...props }) {
+  return (
+    <svg
+      stroke="currentColor"
+      fill="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 24 24"
+      height={size}
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ color, ...style }}
+      {...props}
+    >
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm3.324 16.59c-1.464.394-2.887.487-4.137.273-2.023-.347-3.23-1.664-3.522-3.841-.303-2.257.653-4.542 2.378-5.679 1.439-.949 3.013-1.042 4.09-.247.962.71 1.258 1.942.748 3.125-.435 1.009-1.406 1.815-2.791 2.317-.113.041-.219.076-.32.106.27 1.157.906 1.838 1.776 1.905.748.058 1.62-.234 2.476-.814l-.698 2.855zm-2.484-6.388c.767-.32 1.267-.78 1.458-1.341.173-.509.023-.974-.384-1.196-.452-.247-1.17-.156-1.92.29-.844.502-1.393 1.393-1.492 2.433.824-.037 1.616-.073 2.338-.186z" />
+    </svg>
+  );
+}
 import omPhoto from './assets/om_photo.jpg';
 import omPhotoHero from './assets/om_photo_hero.png';
 import project1Img from './assets/project1.png';
@@ -11,23 +71,23 @@ import './App.css';
 /* ─── CUSTOM POTHOLE UI (REPLACING IMAGE) ─── */
 function PotholeUI() {
   return (
-    <div className="pothole-ui-container" style={{ width: '100%', height: '100%', minHeight: '280px', background: '#f4f6f8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: 'sans-serif' }}>
-      <div style={{ background: '#fff', padding: '30px', borderRadius: '8px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', textAlign: 'center', width: '100%', maxWidth: '600px' }}>
-        <div style={{ color: '#1a3b86', margin: '0 0 8px 0', fontSize: '24px', fontWeight: 'bold', animation: 'none' }}>Pothole Detection System</div>
-        <p style={{ color: '#333', fontSize: '13px', marginBottom: '24px', animation: 'none' }}>Select Detection Mode</p>
+    <div className="pothole-ui-container">
+      <div className="pothole-ui-card">
+        <div className="pothole-ui-title">Pothole Detection System</div>
+        <p className="pothole-ui-sub">Select Detection Mode</p>
 
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-          <div style={{ flex: 1, border: '1px solid #eaeaea', borderRadius: '6px', padding: '16px 10px', background: '#fafafa' }}>
-            <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>📷 Image Detection</div>
-            <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Upload an image and detect potholes</p>
+        <div className="pothole-modes-grid">
+          <div className="pothole-mode-box">
+            <div className="pothole-mode-name">📷 Image Detection</div>
+            <p className="pothole-mode-desc">Upload an image and detect potholes</p>
           </div>
-          <div style={{ flex: 1, border: '1px solid #eaeaea', borderRadius: '6px', padding: '16px 10px', background: '#fafafa' }}>
-            <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>🎥 Video Detection</div>
-            <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Upload a video and analyze frames</p>
+          <div className="pothole-mode-box">
+            <div className="pothole-mode-name">🎥 Video Detection</div>
+            <p className="pothole-mode-desc">Upload a video and analyze frames</p>
           </div>
-          <div style={{ flex: 1, border: '1px solid #b2ece3', borderRadius: '6px', padding: '16px 10px', background: '#dcfcf8' }}>
-            <div style={{ color: '#1a3b86', fontSize: '15px', fontWeight: 'bold', margin: '0 0 6px 0', animation: 'none' }}>📡 Live Webcam</div>
-            <p style={{ color: '#555', fontSize: '11px', margin: 0, animation: 'none' }}>Real-time pothole detection</p>
+          <div className="pothole-mode-box highlight">
+            <div className="pothole-mode-name">📡 Live Webcam</div>
+            <p className="pothole-mode-desc">Real-time pothole detection</p>
           </div>
         </div>
       </div>
@@ -38,7 +98,7 @@ function PotholeUI() {
 /* ─── SCROLL REVEAL ─── */
 function useReveal(activeTab) {
   useEffect(() => {
-    const selector = '[data-reveal], [data-stagger], .exp-item, .tech-card, .skills-group, .showcase-card, .ach-cell, .tech-stack-cell, .about-left, .about-right, .contact-grid > *';
+    const selector = '[data-reveal], [data-stagger], .exp-item, .tech-card, .skill-card, .skills-group, .showcase-card, .ach-cell, .ach-stacked-panel, .tech-stack-cell, .about-left, .about-right, .contact-grid > *';
     const els = document.querySelectorAll(selector);
     const obs = new IntersectionObserver(
       (entries) => {
@@ -319,10 +379,38 @@ const POSITIONS = [
 ];
 
 const ACHIEVEMENTS = [
-  { num: '01', icon: '🏆', title: 'Smart India Hackathon — Winner', org: 'Govt. of India · 2025', desc: "India's biggest national-level hackathon — won at the college level with the AI pothole detection platform." },
-  { num: '02', icon: '🚀', title: 'All-India Rank 19 — E-Summit, IIT Bombay', org: 'IIT Bombay E-Cell · 2025', desc: 'National Entrepreneurship Challenge — AIR 19 as Graphic Designing Lead for E-Cell, S.A.T.I.' },
-  { num: '03', icon: '🎓', title: 'Cummins Scholar', org: 'Cummins India · 2023', desc: 'Selected among 32 of 5,000+ students for full fee coverage based on academic excellence and merit.' },
-  { num: '04', icon: '🎖️', title: 'NCC — All India Thal Sainik Camp', org: 'IGC Raipur · National Cadet Corps', desc: 'Attended the All India Thal Sainik Camp twice, demonstrating leadership, discipline, and teamwork.' },
+  {
+    num: '01',
+    icon: FaTrophy,
+    title: 'Smart India Hackathon — Winner',
+    org: 'Govt. of India · 2025',
+    metric: '1ST PLACE',
+    desc: "India's biggest national-level hackathon — won at the college level with the AI pothole detection platform.",
+  },
+  {
+    num: '02',
+    icon: FaRocket,
+    title: 'All-India Rank 19 — E-Summit, IIT Bombay',
+    org: 'IIT Bombay E-Cell · 2025',
+    metric: 'AIR 19',
+    desc: 'National Entrepreneurship Challenge — AIR 19 as Graphic Designing Lead for E-Cell, S.A.T.I.',
+  },
+  {
+    num: '03',
+    icon: FaGraduationCap,
+    title: 'Cummins Scholar',
+    org: 'Cummins India · 2023',
+    metric: 'TOP 32 / 5,000+',
+    desc: 'Selected among 32 of 5,000+ students for full fee coverage based on academic excellence and merit.',
+  },
+  {
+    num: '04',
+    icon: FaAward,
+    title: 'NCC — All India Thal Sainik Camp',
+    org: 'IGC Raipur · National Cadet Corps',
+    metric: '2X CADET',
+    desc: 'Attended the All India Thal Sainik Camp twice, demonstrating leadership, discipline, and teamwork.',
+  },
 ];
 
 /* Skills — grouped exactly as verified: Data Analytics focus, supported by AI/DS */
@@ -343,27 +431,23 @@ const SKILL_GROUPS = [
 
 /* Flat technology card grid — reference-style "Technologies · Daily Stack".
    Only real, resume-verified skills. */
-const TECH_CARDS = [
-  { icon: '🗄️', name: 'SQL' },
-  { icon: '📈', name: 'Power BI' },
-  { icon: '📗', name: 'Excel' },
-  { icon: '🐍', name: 'Python' },
-  { icon: '🧮', name: 'Pandas' },
-  { icon: '🔢', name: 'NumPy' },
-  { icon: '🤖', name: 'Machine Learning' },
-  { icon: '👁️', name: 'OpenCV' },
-  { icon: '🔥', name: 'PyTorch' },
-  { icon: '⚡', name: 'YOLOv8' },
-  { icon: '💬', name: 'NLTK' },
-  { icon: '🌐', name: 'Flask' },
-  { icon: '🟢', name: 'Streamlit' },
-  { icon: '🗃️', name: 'MySQL' },
-  { icon: '⚛️', name: 'React' },
-  { icon: '🎨', name: 'HTML / CSS' },
-  { icon: '🔷', name: 'Figma' },
-  { icon: '🖌️', name: 'Canva' },
-  { icon: '🐙', name: 'Git & GitHub' },
+const skills = [
+  { name: 'Python', icon: SiPython, color: '#3776AB' },
+  { name: 'Power BI', icon: SiPowerbi, color: '#F2C811' },
+  { name: 'Pandas', icon: SiPandas, color: '#E70488' },
+  { name: 'NumPy', icon: SiNumpy, color: '#4DABCF' },
+  { name: 'PyTorch', icon: SiPytorch, color: '#EE4C2C' },
+  { name: 'OpenCV', icon: SiOpencv, color: '#5C3EE8' },
+  { name: 'React', icon: SiReact, color: '#61DAFB' },
+  { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
+  { name: 'Flask', icon: SiFlask, color: '#FFFFFF' },
+  { name: 'Streamlit', icon: SiStreamlit, color: '#FF4B4B' },
+  { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
+  { name: 'GitHub', icon: SiGithub, color: '#FFFFFF' },
+  { name: 'Canva', icon: SiCanva, color: '#00C4CC' },
 ];
+
+const TECH_CARDS = skills;
 
 const TICKER_ITEMS = [
   'SQL', 'Power BI', 'Excel', 'Python', 'Pandas', 'NumPy',
@@ -536,6 +620,26 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [currentAchSlide, setCurrentAchSlide] = useState(0);
+  const [isAchAutoPlay, setIsAchAutoPlay] = useState(true);
+  const [isAchHovered, setIsAchHovered] = useState(false);
+  const achTouchStartRef = useRef(0);
+
+  const nextAchSlide = useCallback(() => {
+    setCurrentAchSlide((prev) => (prev + 1) % ACHIEVEMENTS.length);
+  }, []);
+
+  const prevAchSlide = useCallback(() => {
+    setCurrentAchSlide((prev) => (prev - 1 + ACHIEVEMENTS.length) % ACHIEVEMENTS.length);
+  }, []);
+
+  useEffect(() => {
+    if (activeTab !== 'achievements' || !isAchAutoPlay || isAchHovered) return;
+    const timer = setInterval(() => {
+      nextAchSlide();
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [activeTab, isAchAutoPlay, isAchHovered, nextAchSlide]);
   const touchStartRef = useRef(0);
   const touchEndRef = useRef(0);
 
@@ -553,6 +657,7 @@ export default function App() {
 
   const handleTouchStart = (e) => {
     touchStartRef.current = e.targetTouches[0].clientX;
+    touchEndRef.current = 0;
   };
   const handleTouchMove = (e) => {
     touchEndRef.current = e.targetTouches[0].clientX;
@@ -925,18 +1030,20 @@ return (
         </div>
 
         <div className="tech-count-eyebrow" data-reveal>
-          {TECH_CARDS.length} TECHNOLOGIES · DAILY STACK
+          {skills.length} TECHNOLOGIES · DAILY STACK
         </div>
 
         <div className="tech-card-grid" data-reveal>
-          {TECH_CARDS.map((t, i) => (
+          {skills.map(({ name, icon: Icon, color }, i) => (
             <div
-              className="tech-card"
-              key={t.name}
+              className="tech-card skill-card"
+              key={name}
               style={{ transitionDelay: `${(i % 12) * 0.05}s` }}
             >
-              <span className="tech-card-icon">{t.icon}</span>
-              <span className="tech-card-name">{t.name}</span>
+              <span className="tech-card-icon">
+                <Icon size={40} color={color} />
+              </span>
+              <p className="tech-card-name">{name}</p>
             </div>
           ))}
         </div>
@@ -1244,40 +1351,154 @@ return (
         {activeTab === 'techstack' && (
           <div className="tech-stack-grid" data-stagger>
             {[
-              { icon: '🗄️', name: 'SQL', type: 'Data Analytics' },
-              { icon: '📈', name: 'Power BI', type: 'Data Visualization' },
-              { icon: '📗', name: 'Excel', type: 'Data Analytics' },
-              { icon: '🐍', name: 'Python', type: 'Programming' },
-              { icon: '📊', name: 'Pandas · NumPy', type: 'Data Science' },
-              { icon: '🤖', name: 'Machine Learning', type: 'AI / ML' },
-              { icon: '👁️', name: 'OpenCV', type: 'Computer Vision' },
-              { icon: '⚡', name: 'YOLOv8', type: 'Object Detection' },
-              { icon: '🔥', name: 'PyTorch', type: 'Deep Learning' },
-              { icon: '🔷', name: 'Figma', type: 'Design' },
-              { icon: '🎨', name: 'Canva', type: 'Design' },
-              { icon: '🐙', name: 'Git · GitHub', type: 'Version Control' },
-            ].map((t) => (
-              <div className="tech-stack-cell" key={t.name}>
-                <span className="tech-cell-icon">{t.icon}</span>
-                <div className="tech-cell-name">{t.name}</div>
-                <div className="tech-cell-type">{t.type}</div>
-              </div>
-            ))}
+              { icon: TbSql, color: '#00758F', name: 'SQL', type: 'Data Analytics' },
+              { icon: SiPowerbi, color: '#F2C811', name: 'Power BI', type: 'Data Visualization' },
+              { icon: RiFileExcel2Line, color: '#217346', name: 'Excel', type: 'Data Analytics' },
+              { icon: SiPython, color: '#3776AB', name: 'Python', type: 'Programming' },
+              { icon: SiPandas, color: '#E70488', name: 'Pandas · NumPy', type: 'Data Science' },
+              { icon: FaBrain, color: '#38BDF8', name: 'Machine Learning', type: 'AI / ML' },
+              { icon: SiOpencv, color: '#5C3EE8', name: 'OpenCV', type: 'Computer Vision' },
+              { icon: SiYolo, color: '#00FFFF', name: 'YOLOv8', type: 'Object Detection' },
+              { icon: SiPytorch, color: '#EE4C2C', name: 'PyTorch', type: 'Deep Learning' },
+              { icon: SiFigma, color: '#F24E1E', name: 'Figma', type: 'Design' },
+              { icon: SiCanva, color: '#00C4CC', name: 'Canva', type: 'Design' },
+              { icon: SiGithub, color: '#FFFFFF', name: 'Git · GitHub', type: 'Version Control' },
+            ].map((t) => {
+              const TechIcon = t.icon;
+              return (
+                <div className="tech-stack-cell" key={t.name}>
+                  <span className="tech-cell-icon">
+                    {typeof t.icon === 'string' ? t.icon : <TechIcon size={30} color={t.color} />}
+                  </span>
+                  <div className="tech-cell-name">{t.name}</div>
+                  <div className="tech-cell-type">{t.type}</div>
+                </div>
+              );
+            })}
           </div>
         )}
 
-        {/* Tab: Achievements */}
+        {/* Tab: Achievements — 3D Perspective Moving Deck */}
         {activeTab === 'achievements' && (
-          <div className="ach-strip" data-stagger>
-            {ACHIEVEMENTS.map((a) => (
-              <div className="ach-cell" key={a.num}>
-                <div className="ach-num">{a.num}</div>
-                <span className="ach-icon">{a.icon}</span>
-                <div className="ach-org">{a.org}</div>
-                <div className="ach-title">{a.title}</div>
-                <p className="ach-desc">{a.desc}</p>
+          <div
+            className="ach-3d-stage"
+            tabIndex={0}
+            onMouseEnter={() => setIsAchHovered(true)}
+            onMouseLeave={() => setIsAchHovered(false)}
+            onTouchStart={(e) => {
+              achTouchStartRef.current = e.touches[0].clientX;
+            }}
+            onTouchEnd={(e) => {
+              const diff = achTouchStartRef.current - e.changedTouches[0].clientX;
+              if (diff > 45) nextAchSlide();
+              else if (diff < -45) prevAchSlide();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowRight') nextAchSlide();
+              if (e.key === 'ArrowLeft') prevAchSlide();
+            }}
+          >
+            <div className="tech-count-eyebrow" data-reveal style={{ textAlign: 'center', marginBottom: '16px' }}>
+              {ACHIEVEMENTS.length} HONORS & RECOGNITIONS · PERSPECTIVE DECK
+            </div>
+
+            <div className="ach-3d-stack-viewport">
+              <div className="ach-3d-stack">
+                {ACHIEVEMENTS.map((a, i) => {
+                  const AchIcon = a.icon;
+                  const diff = (i - currentAchSlide + ACHIEVEMENTS.length) % ACHIEVEMENTS.length;
+                  return (
+                    <div
+                      className={`ach-3d-card-wrap pos-${diff}`}
+                      key={a.num}
+                      onClick={() => setCurrentAchSlide(i)}
+                      title={`Click to view ${a.title}`}
+                    >
+                      <div className="ach-pro-card">
+                        {/* Header Strip */}
+                        <div className="ach-pro-header">
+                          <div className="ach-pro-header-left">
+                            <span className="ach-pro-index">{a.num}</span>
+                            <span className="ach-pro-mini-title">{a.title}</span>
+                          </div>
+                          <div className="ach-pro-header-right">
+                            <span>{a.org}</span>
+                            <span>•</span>
+                            <span className="ach-pro-header-badge">{a.metric} ★</span>
+                          </div>
+                        </div>
+
+                        {/* Card Content Body */}
+                        <div className="ach-pro-body">
+                          <div className="ach-pro-top-row">
+                            <div className="ach-pro-icon-box">
+                              <AchIcon size={22} />
+                            </div>
+                            <div className="ach-pro-meta">
+                              <span className="ach-pro-org">
+                                <span className="ach-pro-dot" />
+                                {a.org}
+                              </span>
+                              <span className="ach-pro-metric">
+                                {a.metric}
+                              </span>
+                            </div>
+                            <div className="ach-pro-watermark">{a.num}</div>
+                          </div>
+
+                          <h3 className="ach-pro-title">{a.title}</h3>
+                          <p className="ach-pro-desc">{a.desc}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
+            </div>
+
+            {/* Bottom Controls */}
+            <div className="ach-controls-bar">
+              <div className="ach-arrows-group">
+                <button
+                  type="button"
+                  className="ach-arrow-btn"
+                  onClick={prevAchSlide}
+                  title="Previous Achievement"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  className="ach-arrow-btn"
+                  onClick={nextAchSlide}
+                  title="Next Achievement"
+                >
+                  →
+                </button>
+              </div>
+
+              <div className="ach-dots-group">
+                {ACHIEVEMENTS.map((a, idx) => (
+                  <button
+                    key={a.num}
+                    type="button"
+                    className={`ach-dot-pill ${currentAchSlide === idx ? 'active' : ''}`}
+                    onClick={() => setCurrentAchSlide(idx)}
+                    title={`Achievement 0${idx + 1}`}
+                  >
+                    {currentAchSlide === idx && isAchAutoPlay && !isAchHovered && (
+                      <span className="ach-dot-progress" />
+                    )}
+                  </button>
+                ))}
+              </div>
+
+                            <div className="ach-counter-badge" title="Active Slide">
+                <span className="ach-counter-current">0{currentAchSlide + 1}</span>
+                <span className="ach-counter-sep">/</span>
+                <span className="ach-counter-total">0{ACHIEVEMENTS.length}</span>
+              </div>
+            </div>
           </div>
         )}
       </div>
